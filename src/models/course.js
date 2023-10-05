@@ -38,126 +38,127 @@ updatedAt: Time of Course Updation
 const validator = require("validator");
 
 const Course = {
-
-  title : {
-    type : String,
-    trim : true,
-    required : true,
-    minlength : 4,
-    maxlength : 50,
-    validate : {
-      validator : (value) => validator.isAlphaNumeric(value.replace(/\s/g, "")),
-      message : "Invalid characters in title",
+  title: {
+    type: String,
+    trim: true,
+    required: true,
+    minlength: 4,
+    maxlength: 50,
+    validate: {
+      validator: (value) => validator.isAlphaNumeric(value.replace(/\s/g, "")),
+      message: "Invalid characters in title",
     },
   },
 
-  description : {
-    type : String,
-    default : "",
-    maxLength : 500,
+  description: {
+    type: String,
+    default: "",
+    maxLength: 500,
   },
 
-  instructor : {
-    type : mongoose.Schema.Types.ObjectId,
-    ref : "Instructor",
+  instructor: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Instructor",
   },
 
-  categories : {
-    type : [
+  categories: {
+    type: [
       {
-        type : String,
-        trim : true,
+        type: String,
+        trim: true,
       },
     ],
-    validate : {
-      validator : (categories) => categories.every(
-          (cat) => validator.isAlphanumeric(cat.replace(/\s/g, ""))),
-      message : "Each category should be alphanumeric",
+    validate: {
+      validator: (categories) =>
+        categories.every((cat) =>
+          validator.isAlphanumeric(cat.replace(/\s/g, "")),
+        ),
+      message: "Each category should be alphanumeric",
     },
   },
 
-  price : {
-    type : Number,
-    validate : {
-      validator : (value) => {
-        if (isNaN(value))
-          return false;
+  price: {
+    type: Number,
+    validate: {
+      validator: (value) => {
+        if (isNaN(value)) return false;
 
         const decimalPlaces = (value.toString().split(".")[1] || "").length;
         return decimalPlaces <= 2;
       },
-      message : "Price should be a number with at most 2 decimal places",
+      message: "Price should be a number with at most 2 decimal places",
     },
   },
 
-  discount : {
-    type : Number,
-    min : 10,
-    max : 100,
+  discount: {
+    type: Number,
+    min: 10,
+    max: 100,
   },
 
-  rating : {
-    type : Number,
-    min : 0,
-    max : 5,
+  rating: {
+    type: Number,
+    min: 0,
+    max: 5,
   },
 
-  enrollments : {type : Number, default : 0},
+  enrollments: { type: Number, default: 0 },
 
-  thumbnail : {
-    type : String,
-    default :
-        'https://creazilla-store.fra1.digitaloceanspaces.com/emojis/42602/play-button-emoji-clipart-md.png',
-    validate : {
-      validator : (value) => validator.isURL(value),
-      message : "Invalid URL for thumbnail image.",
+  thumbnail: {
+    type: String,
+    default:
+      "https://creazilla-store.fra1.digitaloceanspaces.com/emojis/42602/play-button-emoji-clipart-md.png",
+    validate: {
+      validator: (value) => validator.isURL(value),
+      message: "Invalid URL for thumbnail image.",
     },
   },
 
-  requirements : {
-    type :
-        [ {type : String, minlength : 10, maxlength : 100, default : 'None'} ]
+  requirements: {
+    type: [{ type: String, minlength: 10, maxlength: 100, default: "None" }],
   },
 
-  courseMaterials : {
-    type : [ {
-      name : {
-        type : String,
-      },
-      createdAt : {
-        type : Date,
-        default : Date.now,
-      }
-    } ]
-  },
-
-  questionAnswers : {
-    type : [
+  courseMaterials: {
+    type: [
       {
-        title : {
-          type : String,
-          minlength : 10,
-          maxlength : 100,
+        name: {
+          type: String,
         },
-        description : {
-          type : String,
-          minlength : 50,
-          maxlength : 1000,
+        createdAt: {
+          type: Date,
+          default: Date.now,
         },
-        askedBy : {
-          asker : mongoose.Schema.Types.ObjectId,
-          ref : 'Student',
+      },
+    ],
+  },
+
+  questionAnswers: {
+    type: [
+      {
+        title: {
+          type: String,
+          minlength: 10,
+          maxlength: 100,
         },
-        answers : {
-          type : [
+        description: {
+          type: String,
+          minlength: 50,
+          maxlength: 1000,
+        },
+        askedBy: {
+          asker: mongoose.Schema.Types.ObjectId,
+          ref: "Student",
+        },
+        answers: {
+          type: [
             {
-              answerer : {
-                type : mongoose.Schema.Types.ObjectId,
-                refPath : 'answers.userType',
+              answerer: {
+                type: mongoose.Schema.Types.ObjectId,
+                refPath: "answers.userType",
               },
-              userType : {
-                type : String,
-                enum : [ 'Student', 'Instructor' ],
+              userType: {
+                type: String,
+                enum: ["Student", "Instructor"],
               },
             },
           ],
@@ -166,24 +167,24 @@ const Course = {
     ],
   },
 
-  lessons : {
-    type : [
+  lessons: {
+    type: [
       {
-        subsection : [
+        subsection: [
           {
-            title : {
-              type : String,
-              required : true,
+            title: {
+              type: String,
+              required: true,
             },
-            videos : [
+            videos: [
               {
-                title : {
-                  type : String,
-                  required : true,
+                title: {
+                  type: String,
+                  required: true,
                 },
-                videoLink : {
-                  type : String,
-                  required : true,
+                videoLink: {
+                  type: String,
+                  required: true,
                 },
               },
             ],
@@ -193,9 +194,9 @@ const Course = {
     ],
   },
 
-  createdAt : {type : Date, default : Date.now},
+  createdAt: { type: Date, default: Date.now },
 
-  updatedAt : {type : Date}
+  updatedAt: { type: Date },
 };
 
 export default Course;
