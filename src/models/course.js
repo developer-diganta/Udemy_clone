@@ -23,9 +23,11 @@ requirements: Array of string of requirements for the course
 
 courseMaterials: Array of Objects with name (mischellaneous)
 
-questionAnswers: QAs for a particular course, can be answered by student or teacher
+questionAnswers: QAs for a particular course, can be answered by student or
+teacher
 
-lessons: The lesson array of objects. Each object acts as sub lesson which contains array of videos.
+lessons: The lesson array of objects. Each object acts as sub lesson which
+contains array of videos.
 
 createdAt: Time Of Course Creation
 

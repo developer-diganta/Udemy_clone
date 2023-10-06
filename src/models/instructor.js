@@ -5,7 +5,8 @@ Every Instructor consists of the following properties:
 
   email: Normal Email
 
-  password: At least 8 characters with at least one uppercase, one lowercase, one digit, and one special character
+  password: At least 8 characters with at least one uppercase, one lowercase,
+one digit, and one special character
 
   bio: Not mandatory, between 10 to 500 characters
 
@@ -117,7 +118,8 @@ const instructorSchema = new mongoose.Schema({
 });
 
 /*
-  Password Hasher for instructor schema. fires on every save operation, checking if password is modified.
+  Password Hasher for instructor schema. fires on every save operation, checking
+  if password is modified.
 */
 
 instructorSchema.pre("save", async function (next) {
@@ -145,7 +147,8 @@ instructorSchema.methods.generateAuthToken = async function () {
 };
 
 /*
-  instructor finder via email and password, also allows at max 3 sessions per email
+  instructor finder via email and password, also allows at max 3 sessions per
+  email
 */
 
 instructorSchema.statics.findByCredentials = async (email, password) => {

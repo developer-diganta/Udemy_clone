@@ -30,9 +30,10 @@ describe("sendOtp", () => {
   });
 
   it("should send OTP and return email token", async () => {
-    const response = await request(app)
-      .post("/api/otp/verify")
-      .send({ otp: "123456", token: mocktoken });
+    const response = await request(app).post("/api/otp/verify").send({
+      otp: "123456",
+      token: mocktoken,
+    });
 
     expect(response.status).toBe(200);
     expect(response.body).toEqual(true);

@@ -1,7 +1,8 @@
 /*
 *****SCHEMA FOR PAYMENT*****
-    
-    student: student who made payment, linked to student collection via student id
+
+    student: student who made payment, linked to student collection via student
+id
 
     course: course which was bought, linked to course collection via course id
 

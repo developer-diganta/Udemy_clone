@@ -61,7 +61,10 @@ describe("studentSignUp", () => {
   it("should handle errors and return a 400 status", async () => {
     const response = await request(app)
       .post("/api/student")
-      .send({ ...studentmock, token: "Fake Token" });
+      .send({
+        ...studentmock,
+        token: "Fake Token",
+      });
 
     expect(response.statusCode).toBe(400);
     expect(response.text).toBe(

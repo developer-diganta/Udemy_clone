@@ -3,7 +3,7 @@ const Otp = require("../../models/otp");
 const jwt = require("jsonwebtoken");
 const mailJet = require("../../utils/mailJet");
 
-/* 
+/*
 
 Sends OTP. Also sends an email to the requester with the otp
 Accepts email

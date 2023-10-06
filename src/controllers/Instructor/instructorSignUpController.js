@@ -3,8 +3,9 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
 /*
-Signs Up a new user, and if the user is already present/enters invalid email returns an error
-Accepts data as per instructor schema and a token which is used to verify email
+Signs Up a new user, and if the user is already present/enters invalid email
+returns an error Accepts data as per instructor schema and a token which is used
+to verify email
 */
 
 const instructorSignUp = async (req, res) => {

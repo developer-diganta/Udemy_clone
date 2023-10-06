@@ -4,9 +4,11 @@
 
     email: Normal Email
 
-    password: At least 8 characters with at least one uppercase, one lowercase, one digit, and one special character
+    password: At least 8 characters with at least one uppercase, one lowercase,
+one digit, and one special character
 
-    enrolled: Array of objects, each object has course id, enrollment date and current progress
+    enrolled: Array of objects, each object has course id, enrollment date and
+current progress
 
     wishlist: Array of ids of course
 
@@ -112,7 +114,8 @@ const studentSchema = new mongoose.Schema({
 });
 
 /*
-  Password Hasher for instructor schema. fires on every save operation, checking if password is modified.
+  Password Hasher for instructor schema. fires on every save operation, checking
+  if password is modified.
 */
 
 studentSchema.pre("save", async function (next) {

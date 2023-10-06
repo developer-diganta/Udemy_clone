@@ -4,7 +4,8 @@ const jwt = require("jsonwebtoken");
 
 /*
 Verifies OTP.
-Accepts the otp and a token that contains the email against which OTP is to be validated.
+Accepts the otp and a token that contains the email against which OTP is to be
+validated.
 */
 
 const verifyOtp = async (req, res) => {

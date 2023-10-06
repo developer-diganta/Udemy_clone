@@ -38,7 +38,10 @@ describe("instructorSignUp", () => {
   it("should sign up an instructor and return a token", async () => {
     const response = await request(app)
       .post("/api/instructor")
-      .send({ ...instructormock, token });
+      .send({
+        ...instructormock,
+        token,
+      });
 
     expect(response.statusCode).toBe(201);
     expect(response.body).toEqual({

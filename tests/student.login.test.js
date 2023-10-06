@@ -28,9 +28,10 @@ describe("studentlogin", () => {
     await Student.findOneAndDelete({ email: "test@test.com" });
   });
   it("should log in an existing instructor and return a token", async () => {
-    const response = await request(app)
-      .post("/api/student/login")
-      .send({ email: "test@test.com", password: "StrongPassword123!" });
+    const response = await request(app).post("/api/student/login").send({
+      email: "test@test.com",
+      password: "StrongPassword123!",
+    });
     expect(response.statusCode).toBe(200);
     expect(response.body).toEqual({
       message: "Success",
@@ -40,9 +41,10 @@ describe("studentlogin", () => {
     });
   });
   it("returns appropriate error on non-existent login", async () => {
-    const response = await request(app)
-      .post("/api/student/login")
-      .send({ email: "test@test.com", password: "StrongPassword12223!" });
+    const response = await request(app).post("/api/student/login").send({
+      email: "test@test.com",
+      password: "StrongPassword12223!",
+    });
     expect(response.statusCode).toBe(400);
     expect(response.body).toEqual({
       message: "Invalid Credentials",
