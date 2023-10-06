@@ -36,7 +36,6 @@ updatedAt: Time of Course Updation
 const validator = require("validator");
 
 const Course = {
-  
   title: {
     type: String,
     trim: true,
@@ -48,18 +47,18 @@ const Course = {
       message: "Invalid characters in title",
     },
   },
-  
+
   description: {
     type: String,
     default: "",
     maxLength: 500,
   },
-  
+
   instructor: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Instructor",
   },
-  
+
   categories: {
     type: [
       {
@@ -70,12 +69,12 @@ const Course = {
     validate: {
       validator: (categories) =>
         categories.every((cat) =>
-          validator.isAlphanumeric(cat.replace(/\s/g, ""))
+          validator.isAlphanumeric(cat.replace(/\s/g, "")),
         ),
       message: "Each category should be alphanumeric",
     },
   },
-  
+
   price: {
     type: Number,
     validate: {
@@ -88,57 +87,57 @@ const Course = {
       message: "Price should be a number with at most 2 decimal places",
     },
   },
-  
+
   discount: {
     type: Number,
     min: 10,
     max: 100,
   },
-  
+
   rating: {
     type: Number,
     min: 0,
     max: 5,
   },
-  
+
   enrollments: {
-    type:Number,
-    default:0
+    type: Number,
+    default: 0,
   },
 
   thumbnail: {
     type: String,
     default:
-      'https://creazilla-store.fra1.digitaloceanspaces.com/emojis/42602/play-button-emoji-clipart-md.png',
+      "https://creazilla-store.fra1.digitaloceanspaces.com/emojis/42602/play-button-emoji-clipart-md.png",
     validate: {
       validator: (value) => validator.isURL(value),
       message: "Invalid URL for thumbnail image.",
     },
   },
 
-  requirements:{
-    type:[
-        {
-            type:String,
-            minlength:10,
-            maxlength:100,
-            default:'None'
-        }
-    ]
+  requirements: {
+    type: [
+      {
+        type: String,
+        minlength: 10,
+        maxlength: 100,
+        default: "None",
+      },
+    ],
   },
 
-  courseMaterials:{
-    type:[
-        {
-            name:{
-                type:String,
-            },
-            createdAt:{
-                type:Date,
-                default: Date.now,
-            }
-        }
-    ]
+  courseMaterials: {
+    type: [
+      {
+        name: {
+          type: String,
+        },
+        createdAt: {
+          type: Date,
+          default: Date.now,
+        },
+      },
+    ],
   },
 
   questionAnswers: {
@@ -156,18 +155,18 @@ const Course = {
         },
         askedBy: {
           asker: mongoose.Schema.Types.ObjectId,
-          ref: 'Student',
+          ref: "Student",
         },
         answers: {
           type: [
             {
               answerer: {
                 type: mongoose.Schema.Types.ObjectId,
-                refPath: 'answers.userType',
+                refPath: "answers.userType",
               },
               userType: {
                 type: String,
-                enum: ['Student', 'Instructor'],
+                enum: ["Student", "Instructor"],
               },
             },
           ],
@@ -192,7 +191,7 @@ const Course = {
                   required: true,
                 },
                 videoLink: {
-                  type: String, 
+                  type: String,
                   required: true,
                 },
               },
@@ -203,14 +202,14 @@ const Course = {
     ],
   },
 
-  createdAt:{
-    type:Date,
-    default: Date.now
+  createdAt: {
+    type: Date,
+    default: Date.now,
   },
-  
-  updatedAt:{
-    type:Date
-  }
+
+  updatedAt: {
+    type: Date,
+  },
 };
 
 export default Course;

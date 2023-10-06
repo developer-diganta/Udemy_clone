@@ -10,17 +10,17 @@
 */
 
 const Payment = {
-    student:{
-        type:mongoose.Schemas.Type.objectId,
-        ref:'Student'
-    },
-    course:{
-        type:mongoose.Schemas.Type.objectId,
-        ref:'Course'       
-    },
-    paymentDetails:{
-        // To be filled later depending on payment gateway implemented
-    }
-}
+  student: {
+    type: mongoose.Schemas.Type.objectId,
+    ref: "Student",
+  },
+  course: {
+    type: mongoose.Schemas.Type.objectId,
+    ref: "Course",
+  },
+  paymentDetails: {
+    // To be filled later depending on payment gateway implemented
+  },
+};
 
 export default Payment;

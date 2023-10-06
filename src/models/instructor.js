@@ -19,9 +19,13 @@ Every Instructor consists of the following properties:
 
 */
 
+const mongoose = require("mongoose");
 const validator = require("validator");
+const salts = require("../config/salts");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
-const Instructor = {
+const instructorSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -36,6 +40,7 @@ const Instructor = {
   email: {
     type: String,
     required: true,
+    unique: true,
     validate: {
       validator: (value) => validator.isEmail(value),
       message: "Invalid Email",
@@ -92,7 +97,7 @@ const Instructor = {
     validate: {
       validator: (links) =>
         links.every(
-          (link) => link.name && link.link && validator.isURL(link.link)
+          (link) => link.name && link.link && validator.isURL(link.link),
         ),
       message: "Each social link must have a valid name and link.",
     },
@@ -101,6 +106,68 @@ const Instructor = {
     type: Date,
     default: Date.now,
   },
+  tokens: [
+    {
+      token: {
+        type: String,
+        required: true,
+      },
+    },
+  ],
+});
+
+/*
+  Password Hasher for instructor schema. fires on every save operation, checking if password is modified.
+*/
+
+instructorSchema.pre("save", async function (next) {
+  const instructor = this;
+  if (this.isModified("password")) {
+    instructor.password = await bcrypt.hash(instructor.password, salts);
+  }
+  next();
+});
+
+/*Auth token generator based on object id */
+
+instructorSchema.methods.generateAuthToken = async function () {
+  const instructor = this;
+  const token = jwt.sign(
+    {
+      _id: instructor._id.toString(),
+    },
+    process.env.SECRET_KEY,
+  );
+  instructor.tokens = instructor.tokens.concat({ token });
+  await instructor.save();
+
+  return token;
 };
 
-export default Instructor;
+/*
+  instructor finder via email and password, also allows at max 3 sessions per email
+*/
+
+instructorSchema.statics.findByCredentials = async (email, password) => {
+  const instructor = await Instructor.findOne({ email });
+
+  if (!instructor) {
+    throw new Error("Unable to login");
+  }
+
+  if (instructor.tokens.length > 2) {
+    throw new Error("Login Overflow");
+  }
+
+  const isMatch = await bcrypt.compare(password, instructor.password);
+
+  if (!isMatch) {
+    throw new Error("Unable to login");
+  }
+
+  return instructor;
+};
+
+const Instructor = mongoose.model("Instructor", instructorSchema);
+
+module.exports = Instructor;
