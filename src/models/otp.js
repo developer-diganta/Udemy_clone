@@ -9,29 +9,29 @@ const mongoose = require("mongoose");
 const validator = require("validator");
 
 const otpSchema = new mongoose.Schema({
-  otp: {
-    type: String,
+  otp : {
+    type : String,
   },
-  email: {
-    type: String,
-    trim: true,
-    lowercase: true,
-    unique: true,
-    required: "Email address is required",
-    match: [
+  email : {
+    type : String,
+    trim : true,
+    lowercase : true,
+    unique : true,
+    required : "Email address is required",
+    match : [
       /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
       "Please fill a valid email address",
     ],
   },
-  expiresAt: {
-    type: Date,
-    default: Date.now,
-    expires: 600,
+  expiresAt : {
+    type : Date,
+    default : Date.now,
+    expires : 600,
   },
 });
 
-otpSchema.statics.verifyOTP = async function (email, otp) {
-  const credentials = await Otp.findOne({ email });
+otpSchema.statics.verifyOTP = async function(email, otp) {
+  const credentials = await Otp.findOne({email});
 
   if (!credentials) {
     throw new Error("Invalid Email");
@@ -46,9 +46,9 @@ otpSchema.statics.verifyOTP = async function (email, otp) {
   return true;
 };
 
-otpSchema.statics.deleteOTP = async function (email) {
+otpSchema.statics.deleteOTP = async function(email) {
   try {
-    const credentials = await Otp.findOneAndRemove({ email });
+    const credentials = await Otp.findOneAndRemove({email});
     return true;
   } catch (err) {
     return false;

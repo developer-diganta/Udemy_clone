@@ -1,39 +1,35 @@
 require("dotenv").config();
 
 // Connects to mail jet api
-const mailjet = require("node-mailjet").apiConnect(
-  process.env.MAPI,
-  process.env.MSECRET,
-);
+const mailjet = require("node-mailjet")
+                    .apiConnect(
+                        process.env.MAPI,
+                        process.env.MSECRET,
+                    );
 
 // Standard Mailjet template to send emails
 const mailJet = (recepient, subject, bodyText, bodyHTML) => {
-  const request = mailjet.post("send", { version: "v3.1" }).request({
-    Messages: [
+  const request = mailjet.post("send", {version : "v3.1"}).request({
+    Messages : [
       {
-        From: {
-          Email: "chrysaor07@gmail.com",
-          Name: "Udemy Clone",
+        From : {
+          Email : "chrysaor07@gmail.com",
+          Name : "Udemy Clone",
         },
-        To: [
+        To : [
           {
-            Email: recepient,
-            Name: "Receiver",
+            Email : recepient,
+            Name : "Receiver",
           },
         ],
-        Subject: subject,
-        TextPart: bodyText,
-        HTMLPart: bodyHTML,
+        Subject : subject,
+        TextPart : bodyText,
+        HTMLPart : bodyHTML,
       },
     ],
   });
-  request
-    .then((result) => {
-      console.log(result.body);
-    })
-    .catch((err) => {
-      console.log(err.statusCode);
-    });
+  request.then((result) => { console.log(result.body); })
+      .catch((err) => { console.log(err.statusCode); });
 };
 
 module.exports = mailJet;

@@ -8,7 +8,7 @@ const otpRoutes = require("./routes/otpRoutes");
 const app = express();
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({extended : true}));
 
 app.use("/api", instructorRoutes);
 app.use("/api", studentRoutes);

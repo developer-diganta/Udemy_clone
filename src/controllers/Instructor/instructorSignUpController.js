@@ -3,8 +3,9 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
 /*
-Signs Up a new user, and if the user is already present/enters invalid email returns an error
-Accepts data as per instructor schema and a token which is used to verify email
+Signs Up a new user, and if the user is already present/enters invalid email
+returns an error Accepts data as per instructor schema and a token which is used
+to verify email
 */
 
 const instructorSignUp = async (req, res) => {
@@ -22,9 +23,9 @@ const instructorSignUp = async (req, res) => {
     const token = await instructor.generateAuthToken();
     res.header("Authorization", `Bearer ${token}`);
     res.status(201).json({
-      message: "Success",
-      email: instructor.email,
-      _id: instructor._id,
+      message : "Success",
+      email : instructor.email,
+      _id : instructor._id,
     });
   } catch (error) {
     res.status(400).send(error);

@@ -2,8 +2,9 @@ const Student = require("../../models/student");
 const jwt = require("jsonwebtoken");
 
 /*
-Signs Up a new user, and if the user is already present/enters invalid email returns an error
-Accepts data as per student schema and a token which is used to verify email
+Signs Up a new user, and if the user is already present/enters invalid email
+returns an error Accepts data as per student schema and a token which is used to
+verify email
 */
 
 const studentSignUp = async (req, res) => {
@@ -21,9 +22,9 @@ const studentSignUp = async (req, res) => {
     const token = await student.generateAuthToken(req.ip);
     res.header("Authorization", `Bearer ${token}`);
     res.status(201).json({
-      message: "Success",
-      email: student.email,
-      _id: student._id,
+      message : "Success",
+      email : student.email,
+      _id : student._id,
     });
   } catch (error) {
     res.status(400).send(error);

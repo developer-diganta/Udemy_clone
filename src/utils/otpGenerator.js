@@ -1,8 +1,8 @@
 const crypto = require("crypto");
 
 /*
-Generates a unique OTP using email and currenttimestamp using crypto library of nodejs
-Accepts email
+Generates a unique OTP using email and currenttimestamp using crypto library of
+nodejs Accepts email
 */
 
 function otpGenerator(email) {
