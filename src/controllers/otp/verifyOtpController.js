@@ -9,7 +9,7 @@ validated.
 */
 
 const verifyOtp = async (req, res) => {
-  const {otp, token} = req.body;
+  const { otp, token } = req.body;
   try {
     const decoded = jwt.verify(token, process.env.SECRET_KEY);
     const email = decoded.email;

@@ -22,9 +22,9 @@ const studentSignUp = async (req, res) => {
     const token = await student.generateAuthToken(req.ip);
     res.header("Authorization", `Bearer ${token}`);
     res.status(201).json({
-      message : "Success",
-      email : student.email,
-      _id : student._id,
+      message: "Success",
+      email: student.email,
+      _id: student._id,
     });
   } catch (error) {
     res.status(400).send(error);

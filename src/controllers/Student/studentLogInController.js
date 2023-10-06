@@ -8,20 +8,20 @@ Accepts email and password in the request body
 const studentLogIn = async (req, res) => {
   try {
     const student = await Student.findByCredentials(
-        req.body.email,
-        req.body.password,
+      req.body.email,
+      req.body.password,
     );
 
     const token = await student.generateAuthToken();
 
     res.send({
-      message : "Success",
-      _id : student._id,
-      email : student.email,
+      message: "Success",
+      _id: student._id,
+      email: student.email,
       token,
     });
   } catch (error) {
-    res.status(400).send({message : "Invalid Credentials"});
+    res.status(400).send({ message: "Invalid Credentials" });
   }
 };
 

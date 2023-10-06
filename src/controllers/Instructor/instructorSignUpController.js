@@ -23,9 +23,9 @@ const instructorSignUp = async (req, res) => {
     const token = await instructor.generateAuthToken();
     res.header("Authorization", `Bearer ${token}`);
     res.status(201).json({
-      message : "Success",
-      email : instructor.email,
-      _id : instructor._id,
+      message: "Success",
+      email: instructor.email,
+      _id: instructor._id,
     });
   } catch (error) {
     res.status(400).send(error);
