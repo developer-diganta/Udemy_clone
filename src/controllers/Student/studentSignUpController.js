@@ -24,6 +24,7 @@ const studentSignUp = async (req, res) => {
       message: "Success",
       email: student.email,
       _id: student._id,
+      type: "Student",
     });
   } catch (error) {
     res.status(400).send(error);

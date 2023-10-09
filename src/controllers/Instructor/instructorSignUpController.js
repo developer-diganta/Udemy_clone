@@ -9,6 +9,7 @@ Accepts data as per instructor schema and a token which is used to verify email
 
 const instructorSignUp = async (req, res) => {
   try {
+    console.log(req.body);
     const decoded = jwt.verify(req.body.token, process.env.SECRET_KEY);
     const email = decoded.email;
     const instructorObject = {
@@ -23,10 +24,12 @@ const instructorSignUp = async (req, res) => {
     res.header("Authorization", `Bearer ${token}`);
     res.status(201).json({
       message: "Success",
+      type: "Instructor",
       email: instructor.email,
       _id: instructor._id,
     });
   } catch (error) {
+    console.log(error);
     res.status(400).send(error);
   }
 };

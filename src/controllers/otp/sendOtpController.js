@@ -10,6 +10,7 @@ Accepts email
 
 */
 const sendOtp = async (req, res) => {
+  console.log("SEND OTP");
   const email = req.body.email;
   const generatedOtp = otpGenerator(email);
   const filter = { email };
@@ -23,7 +24,7 @@ const sendOtp = async (req, res) => {
     `
   <p>Hello there!</p>
 
-  <p>We appreciate your interest in joining Udemy Clone! To complete your registration, use the following One Time Password (OTP): <strong>801fb9</strong>.</p>
+  <p>We appreciate your interest in joining Udemy Clone! To complete your registration, use the following One Time Password (OTP): <strong>${generatedOtp}</strong>.</p>
 
   <p>Please be advised that this OTP is valid for <strong>10 minutes</strong> only. For security reasons, avoid sharing this OTP with others.</p>
 

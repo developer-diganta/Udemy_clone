@@ -34,8 +34,9 @@ updatedAt: Time of Course Updation
 */
 
 const validator = require("validator");
+const mongoose = require("mongoose");
 
-const Course = {
+const courseSchema = new mongoose.Schema({
   title: {
     type: String,
     trim: true,
@@ -43,7 +44,7 @@ const Course = {
     minlength: 4,
     maxlength: 50,
     validate: {
-      validator: (value) => validator.isAlphaNumeric(value.replace(/\s/g, "")),
+      validator: (value) => validator.isAlphanumeric(value.replace(/\s/g, "")),
       message: "Invalid characters in title",
     },
   },
@@ -155,7 +156,7 @@ const Course = {
         },
         askedBy: {
           asker: mongoose.Schema.Types.ObjectId,
-          ref: "Student",
+          // ref: 'Student',
         },
         answers: {
           type: [
@@ -210,6 +211,8 @@ const Course = {
   updatedAt: {
     type: Date,
   },
-};
+});
 
-export default Course;
+const Course = mongoose.model("Course", courseSchema);
+
+module.exports = Course;

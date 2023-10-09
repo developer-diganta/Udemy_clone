@@ -45,6 +45,7 @@ describe("instructorSignUp", () => {
       message: "Success",
       email: "test@test.com",
       _id: expect.any(String),
+      type: "Instructor",
     });
   });
 

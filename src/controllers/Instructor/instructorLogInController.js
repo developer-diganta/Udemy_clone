@@ -19,6 +19,7 @@ const instructorLogIn = async (req, res) => {
       _id: instructor._id,
       email: instructor.email,
       token,
+      name: instructor.name,
     });
   } catch (error) {
     console.log(error);

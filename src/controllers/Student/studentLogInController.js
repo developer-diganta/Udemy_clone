@@ -21,7 +21,8 @@ const studentLogIn = async (req, res) => {
       token,
     });
   } catch (error) {
-    res.status(400).send({ message: "Invalid Credentials" });
+    console.log(error.message);
+    res.status(400).send({ message: error.message });
   }
 };
 

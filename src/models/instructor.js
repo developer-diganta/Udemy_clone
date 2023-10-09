@@ -168,6 +168,16 @@ instructorSchema.statics.findByCredentials = async (email, password) => {
   return instructor;
 };
 
+instructorSchema.statics.validateAndGetInstructor = async (_id, email) => {
+  const instructor = await Instructor.findOne({ _id, email });
+
+  if (!instructor) {
+    throw new Error("No User Found");
+  }
+
+  return instructor;
+};
+
 const Instructor = mongoose.model("Instructor", instructorSchema);
 
 module.exports = Instructor;
