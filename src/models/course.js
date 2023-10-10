@@ -67,13 +67,13 @@ const courseSchema = new mongoose.Schema({
         trim: true,
       },
     ],
-    validate: {
-      validator: (categories) =>
-        categories.every((cat) =>
-          validator.isAlphanumeric(cat.replace(/\s/g, "")),
-        ),
-      message: "Each category should be alphanumeric",
-    },
+    // validate: {
+    //   validator: (categories) =>
+    //     categories.every((cat) =>
+    //       validator.isAlphanumeric(cat.replace(/\s/g, "")),
+    //     ),
+    //   message: "Each category should be alphanumeric",
+    // },
   },
 
   price: {
@@ -212,6 +212,13 @@ const courseSchema = new mongoose.Schema({
     type: Date,
   },
 });
+
+// async function fuzzySearch(query) {
+//   // Case-insensitive search using a regular expression
+//   const result = await Course.find({ title: { $regex: new RegExp(query, 'i') } });
+//   console.log(result)
+//   return result;
+// }
 
 const Course = mongoose.model("Course", courseSchema);
 

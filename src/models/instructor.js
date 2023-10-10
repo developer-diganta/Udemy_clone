@@ -144,6 +144,32 @@ instructorSchema.methods.generateAuthToken = async function () {
   return token;
 };
 
+/* Auth token verification */
+instructorSchema.statics.verifyAuthToken = async function (token, email) {
+  const Instructor = this;
+  let decoded;
+  console.log(token);
+  try {
+    decoded = jwt.verify(token, process.env.SECRET_KEY);
+    console.log(decoded);
+  } catch (error) {
+    // Token verification failed
+    throw new Error("Invalid token");
+  }
+
+  const instructor = await Instructor.findOne({
+    _id: decoded._id,
+    email: email,
+    "tokens.token": token,
+  });
+  if (!instructor) {
+    // Token is valid, but the associated user not found
+    throw new Error("Instructor not found");
+  }
+
+  return instructor;
+};
+
 /*
   instructor finder via email and password, also allows at max 3 sessions per email
 */
