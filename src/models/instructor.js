@@ -147,7 +147,7 @@ instructorSchema.methods.generateAuthToken = async function () {
 /* Auth token verification */
 instructorSchema.statics.verifyAuthToken = async function (token, email) {
   const Instructor = this;
-  console.log(email)
+  console.log(email);
   let decoded;
   console.log(token);
   try {

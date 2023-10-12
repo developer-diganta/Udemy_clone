@@ -179,24 +179,20 @@ const courseSchema = new mongoose.Schema({
   lessons: {
     type: [
       {
-        subsection: [
+        title: {
+          type: String,
+          required: true,
+        },
+        videos: [
           {
             title: {
               type: String,
               required: true,
             },
-            videos: [
-              {
-                title: {
-                  type: String,
-                  required: true,
-                },
-                videoLink: {
-                  type: String,
-                  required: true,
-                },
-              },
-            ],
+            videoLink: {
+              type: String,
+              required: true,
+            },
           },
         ],
       },
