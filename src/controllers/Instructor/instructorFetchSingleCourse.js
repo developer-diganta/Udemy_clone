@@ -17,6 +17,7 @@ const instructorFetchSingleCourse = async (req, res) => {
     if (!course) {
       throw new Error("No Course Found");
     }
+    console.log(course)
     res.status(201).send({ course });
   } catch (error) {
     console.log(error);

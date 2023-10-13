@@ -10,7 +10,9 @@ const {
 const {
   fuzzySearchController,
 } = require("../controllers/Course/fuzzySearchController");
+const { getSingleCourse } = require("../controllers/Course/getSingleCourse");
 
+router.get("/course/:id", getSingleCourse);
 router.get("/courses", getCoursesController);
 router.get("/courses/fuzzysearch", fuzzySearchController);
 router.post("/courses/uploads", upload.single("file"), videoUploadController);
