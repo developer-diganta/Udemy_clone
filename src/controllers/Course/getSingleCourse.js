@@ -5,7 +5,7 @@ const getSingleCourse = async (req,res) => {
         const courseId = req.params.id;
         const course = await Course.findById(courseId).populate({
             path: 'instructor',
-            select: 'name'
+            select: ['name','bio']
           });
           
         res.status(201).send({course})

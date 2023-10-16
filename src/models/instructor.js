@@ -72,10 +72,11 @@ const instructorSchema = new mongoose.Schema({
     type: String,
     default:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQINHBtBZ5RQtpGgsdGGOZj_-s21S4jSIaPow&usqp=CAU",
-    validate: {
-      validator: (value) => validator.isURL(value),
-      message: "Invalid URL for profile image.",
-    },
+  },
+  status:{
+    type: String,
+    enum: ['registered', 'pending'],
+    default: 'pending',    
   },
   socialLinks: {
     type: [
@@ -186,6 +187,10 @@ instructorSchema.statics.findByCredentials = async (email, password) => {
     throw new Error("Login Overflow");
   }
 
+  if(instructor.status === "pending"){
+    throw new Error("Account Not Verified")
+  }
+  
   const isMatch = await bcrypt.compare(password, instructor.password);
 
   if (!isMatch) {
