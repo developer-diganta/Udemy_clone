@@ -10,6 +10,7 @@ const instructorFetchSingleCourse = async (req, res) => {
       req.body.token,
       instructorEmail,
     );
+    console.log(courseId)
     const course = await Course.findOne({
       _id: courseId,
       instructor: instructor._id,

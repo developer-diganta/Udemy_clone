@@ -2,21 +2,25 @@ const Course = require("../../models/course");
 
 const videoUploadController = async (req, res) => {
   const title = req.body.title;
-  const videoToAddAfter = req.body.videoToAddAfter;
+  const videoToAddAfter = parseInt(req.body.videoToAddAfter);
   const subsectionToBeUpdated = req.body.subsectionToBeUpdated;
   const courseID = req.body.courseId;
   const videoLink = req.body.fileName;
-
+  console.log(req.body)
   try {
     const course = await Course.findById(courseID);
+
+
     course.lessons[subsectionToBeUpdated].videos.splice(
-      videoToAddAfter + 1,
+      (videoToAddAfter + 1),
       0,
       {
         title,
         videoLink,
       },
-    );
+    ); 
+
+    console.log(course.lessons[subsectionToBeUpdated])
 
     await course.save();
 

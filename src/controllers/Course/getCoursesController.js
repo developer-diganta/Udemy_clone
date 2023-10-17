@@ -38,9 +38,9 @@ const getCoursesController = async (req, res) => {
       },
     ]);
 
-    console.log(courses);
+    // console.log(courses);
 
-    console.log(courses);
+    // console.log(courses);
 
     res.send(courses);
   } catch (error) {
