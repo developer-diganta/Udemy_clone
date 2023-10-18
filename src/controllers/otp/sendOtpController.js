@@ -12,7 +12,7 @@ Accepts email
 const sendOtp = async (req, res) => {
   console.log("SEND OTP");
   const email = req.body.email;
-  console.log(email)
+  console.log(email);
   const generatedOtp = otpGenerator(email);
   const filter = { email };
   const update = { otp: generatedOtp };
@@ -37,7 +37,7 @@ const sendOtp = async (req, res) => {
     The Udemy Clone Team</p>
   `,
   );
-  res.status(200).send({ message:"Otp sent" });
+  res.status(200).send({ message: "Otp sent" });
 };
 
 module.exports = {

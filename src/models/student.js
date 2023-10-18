@@ -101,6 +101,11 @@ const studentSchema = new mongoose.Schema({
       },
     ],
   },
+  status: {
+    type: String,
+    enum: ["registered", "pending"],
+    default: "pending",
+  },
   tokens: [
     {
       token: {

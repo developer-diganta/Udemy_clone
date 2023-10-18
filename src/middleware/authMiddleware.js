@@ -1,18 +1,24 @@
-const jwt = require('jsonwebtoken');
-const Instructor = require('../../src/models/instructor');
+const jwt = require("jsonwebtoken");
+const Instructor = require("../../src/models/instructor");
 
 const authMiddleware = async (req, res, next) => {
   try {
-    console.log(req.body)
+    console.log(req.body);
     const token = req.body.token;
     // const token = req.header('Authorization').replace('Bearer ', '');
     const decoded = jwt.verify(token, process.env.SECRET_KEY);
-    console.log("123")
-    console.log(decoded._id)
-    const instructor = await Instructor.findOne({
-      _id: decoded._id,
-      'tokens.token': token,
-    });
+    console.log("123");
+    console.log(decoded._id);
+    const instructor = await Instructor.findOne(
+      {
+        _id: decoded._id,
+        "tokens.token": token,
+      },
+      {
+        password: 0,
+        tokens: 0,
+      },
+    );
 
     if (!instructor) {
       throw new Error();
@@ -22,7 +28,7 @@ const authMiddleware = async (req, res, next) => {
     req.token = token;
     next();
   } catch (error) {
-    res.status(401).send({ error: 'Please authenticate.' });
+    res.status(401).send({ error: "Please authenticate." });
   }
 };
 

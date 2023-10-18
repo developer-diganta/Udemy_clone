@@ -10,7 +10,7 @@ const instructorFetchSingleCourse = async (req, res) => {
       req.body.token,
       instructorEmail,
     );
-    console.log(courseId)
+    console.log(courseId);
     const course = await Course.findOne({
       _id: courseId,
       instructor: instructor._id,
@@ -18,7 +18,7 @@ const instructorFetchSingleCourse = async (req, res) => {
     if (!course) {
       throw new Error("No Course Found");
     }
-    console.log(course)
+    console.log(course);
     res.status(201).send({ course });
   } catch (error) {
     console.log(error);

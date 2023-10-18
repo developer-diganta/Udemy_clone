@@ -2,6 +2,7 @@ const otpGenerator = require("../../utils/otpGenerator");
 const Otp = require("../../models/otp");
 const jwt = require("jsonwebtoken");
 const Instructor = require("../../models/instructor");
+const Student = require("../../models/student");
 
 /*
 Verifies OTP.
@@ -16,14 +17,24 @@ const verifyOtp = async (req, res) => {
     let token;
     if (check) {
       await Otp.deleteOTP(email);
-      if(type === "instructor")
-      var instructor = await Instructor.findOne({email:email});
-      if(instructor.status === "pending"){
-        instructor.status = "registered"
-        await instructor.save();
-        token = await instructor.generateAuthToken();
-        res.header("Authorization", `Bearer ${token}`);
-        res.send({_id:instructor._id});
+      if (type === "instructor") {
+        var instructor = await Instructor.findOne({ email: email });
+        if (instructor.status === "pending") {
+          instructor.status = "registered";
+          await instructor.save();
+          token = await instructor.generateAuthToken();
+          res.header("Authorization", `Bearer ${token}`);
+          res.send({ _id: instructor._id });
+        }
+      } else {
+        var student = await Student.findOne({ email: email });
+        if (student.status === "pending") {
+          student.status = "registered";
+          await student.save();
+          token = await student.generateAuthToken();
+          res.header("Authorization", `Bearer ${token}`);
+          res.send({ _id: student._id });
+        }
       }
     }
   } catch (error) {

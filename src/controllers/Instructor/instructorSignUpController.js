@@ -25,7 +25,7 @@ const instructorSignUp = async (req, res) => {
       message: "Success",
       type: "instructor",
       email: instructor.email,
-      otpValidation: 0
+      otpValidation: 0,
     });
   } catch (error) {
     console.log(error);
