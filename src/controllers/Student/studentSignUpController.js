@@ -21,7 +21,7 @@ const studentSignUp = async (req, res) => {
       type: "student",
     });
   } catch (error) {
-    console.log(error)
+    console.log(error);
     res.status(400).send(error);
   }
 };

@@ -1,15 +1,15 @@
 const jwt = require("jsonwebtoken");
-const Instructor = require("../../src/models/instructor");
+const Student = require("../../src/models/student");
 
-const authMiddleware = async (req, res, next) => {
+const studentAuthMiddleware = async (req, res, next) => {
   try {
-    // console.log(req.body);
+    console.log(req.body);
     const token = req.body.token;
     // const token = req.header('Authorization').replace('Bearer ', '');
     const decoded = jwt.verify(token, process.env.SECRET_KEY);
-    // console.log("123");
-    // console.log(decoded._id);
-    const instructor = await Instructor.findOne(
+    console.log("123");
+    console.log(decoded._id);
+    const student = await Student.findOne(
       {
         _id: decoded._id,
         "tokens.token": token,
@@ -20,11 +20,11 @@ const authMiddleware = async (req, res, next) => {
       },
     );
 
-    if (!instructor) {
+    if (!student) {
       throw new Error();
     }
 
-    req.instructor = instructor; // Attach the instructor to the request
+    req.student = student; // Attach the student to the request
     req.token = token;
     next();
   } catch (error) {
@@ -32,4 +32,4 @@ const authMiddleware = async (req, res, next) => {
   }
 };
 
-module.exports = authMiddleware;
+module.exports = studentAuthMiddleware;

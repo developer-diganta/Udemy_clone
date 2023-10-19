@@ -11,8 +11,56 @@ const instructorRoutes = require("./routes/instructorRoutes");
 const studentRoutes = require("./routes/studentRoutes");
 const otpRoutes = require("./routes/otpRoutes");
 const courseRoutes = require("./routes/courseRoutes");
+const Student = require("./models/student");
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 const app = express();
+
+app.get("/success", (req, res) => {
+  res.json({ message: "Success" });
+});
+
+let endpointSecret = process.env.END_POINT_SECRET;
+
+app.post(
+  "/stripe/webhook",
+  express.raw({ type: "application/json" }),
+  async (request, response) => {
+    const sig = request.headers["stripe-signature"];
+
+    let event;
+
+    try {
+      event = stripe.webhooks.constructEvent(request.body, sig, endpointSecret);
+      // console.log(event)
+    } catch (err) {
+      // console.log(err)
+      response.status(400).send(`Webhook Error: ${err.message}`);
+      return;
+    }
+
+    switch (event.type) {
+      case "payment_intent.succeeded":
+        const paymentIntentSucceeded = event.data.object;
+        const metadata = paymentIntentSucceeded.metadata;
+        const studentId = metadata.studentId;
+        const courseId = metadata.courseId;
+        const student = await Student.findById(studentId);
+        student.enrolled.push({
+          id: courseId,
+          progress: 0,
+        });
+
+        await student.save();
+        break;
+
+      default:
+        console.log(`Unhandled event type ${event.type}`);
+    }
+
+    response.send();
+  },
+);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -31,6 +79,34 @@ app.use("/api", instructorRoutes);
 app.use("/api", studentRoutes);
 app.use("/api", otpRoutes);
 app.use("/api", courseRoutes);
+
+app.post("/create-checkout-session", async (req, res) => {
+  try {
+    const priceId = req.body.priceId;
+    console.log(priceId);
+    const session = await stripe.checkout.sessions.create({
+      line_items: [
+        {
+          price: priceId,
+          quantity: 1,
+        },
+      ],
+      mode: "payment",
+      payment_intent_data: {
+        metadata: {
+          studentId: req.body.studentId,
+          courseId: req.body.courseId,
+        },
+      },
+      success_url: `http://localhost:8080/student/learn?courseId=${courseId}&payment=sucess`,
+      cancel_url: `http://localhost:3000/cancel.html`,
+    });
+    console.log(session);
+    res.status(200).send({ url: session.url });
+  } catch (err) {
+    console.log(err);
+  }
+});
 
 app.use("/api/course/uploads", express.static("uploads"));
 

@@ -59,7 +59,14 @@ const courseSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Instructor",
   },
-
+  stripePriceId: {
+    type: String,
+    required: true,
+  },
+  stripeProductId: {
+    type: String,
+    required: true,
+  },
   categories: {
     type: [
       {
