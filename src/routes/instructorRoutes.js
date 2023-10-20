@@ -29,6 +29,7 @@ const {
 const {
   instructorLogout,
 } = require("../controllers/Instructor/instructorLogout");
+const { sectionDeletion } = require("../controllers/Course/sectionDeletion");
 
 router.post("/instructor", instructorSignUp);
 router.post("/instructor/login", instructorLogIn);
@@ -53,4 +54,5 @@ router.patch(
   instructorProfileUpdate,
 );
 router.patch("/instructor/logout", authMiddleware, instructorLogout);
+router.delete("/instructor/section/delete", authMiddleware, sectionDeletion);
 module.exports = router;

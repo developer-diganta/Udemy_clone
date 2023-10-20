@@ -65,11 +65,16 @@ const studentSchema = new mongoose.Schema({
           type: mongoose.Schema.Types.ObjectId,
           ref: "Course",
         },
-        progress: {
-          completed: {
-            type: Number,
-          },
-        },
+        progress: [
+          {
+            section:{
+              type:Number
+            },
+            videoNumber:{
+              type:Number
+            }
+          }
+        ],
         enrolledDate: {
           type: Date,
           default: Date.now,

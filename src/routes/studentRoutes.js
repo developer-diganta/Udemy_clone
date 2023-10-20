@@ -14,6 +14,7 @@ const studentAuthMiddleware = require("../middleware/studentAuthMiddleware");
 const {
   studentCheckIfEnrolled,
 } = require("../controllers/Student/studentCheckIfEnrolled");
+const { studentCourseStatus } = require("../controllers/Student/studentCourseStatus");
 
 router.post("/student", studentSignUp);
 router.post("/student/login", studentLogIn);
@@ -27,4 +28,13 @@ router.get(
   studentAuthMiddleware,
   studentCheckIfEnrolled,
 );
+
+router.patch(
+  "/student/statusupdate",
+  studentAuthMiddleware,
+  studentCourseStatus
+)
+
+router.get("/student")
+
 module.exports = router;

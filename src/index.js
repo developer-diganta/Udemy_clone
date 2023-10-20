@@ -12,6 +12,8 @@ const studentRoutes = require("./routes/studentRoutes");
 const otpRoutes = require("./routes/otpRoutes");
 const courseRoutes = require("./routes/courseRoutes");
 const Student = require("./models/student");
+const { courseEnroll } = require("./controllers/Course/courseEnroll");
+const studentAuthMiddleware = require("./middleware/studentAuthMiddleware");
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 const app = express();
@@ -80,33 +82,7 @@ app.use("/api", studentRoutes);
 app.use("/api", otpRoutes);
 app.use("/api", courseRoutes);
 
-app.post("/create-checkout-session", async (req, res) => {
-  try {
-    const priceId = req.body.priceId;
-    console.log(priceId);
-    const session = await stripe.checkout.sessions.create({
-      line_items: [
-        {
-          price: priceId,
-          quantity: 1,
-        },
-      ],
-      mode: "payment",
-      payment_intent_data: {
-        metadata: {
-          studentId: req.body.studentId,
-          courseId: req.body.courseId,
-        },
-      },
-      success_url: `http://localhost:8080/student/learn?courseId=${courseId}&payment=sucess`,
-      cancel_url: `http://localhost:3000/cancel.html`,
-    });
-    console.log(session);
-    res.status(200).send({ url: session.url });
-  } catch (err) {
-    console.log(err);
-  }
-});
+app.post("/api/create-checkout-session", studentAuthMiddleware, courseEnroll);
 
 app.use("/api/course/uploads", express.static("uploads"));
 

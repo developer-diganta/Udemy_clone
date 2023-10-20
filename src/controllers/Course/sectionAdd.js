@@ -9,7 +9,12 @@ const sectionAdd = async (req, res) => {
     console.log(course.lessons);
     course.lessons.splice(index + 1, 0, {
       title: req.body.title,
-      videos: [],
+      videos: [
+        {
+          title:"Add Your Video Here",
+          videoLink:"no link"
+        }
+      ],
     });
     await course.save();
 
