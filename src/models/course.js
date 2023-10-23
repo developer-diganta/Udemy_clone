@@ -108,6 +108,23 @@ const courseSchema = new mongoose.Schema({
     max: 5,
   },
 
+  reviews: [
+    {
+      rating: {
+        type: Number,
+        min: 0,
+        max: 5,
+      },
+      review: {
+        type: String,
+      },
+      reviewer: {
+        type: mongoose.Schema.Types.ObjectId,
+        refPath: "Student",
+      },
+    },
+  ],
+
   enrollments: {
     type: Number,
     default: 0,
@@ -162,8 +179,12 @@ const courseSchema = new mongoose.Schema({
           maxlength: 1000,
         },
         askedBy: {
-          asker: mongoose.Schema.Types.ObjectId,
-          // ref: 'Student',
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Student",
+        },
+        askedOn: {
+          type: Date,
+          default: Date.now,
         },
         answers: {
           type: [
@@ -175,6 +196,13 @@ const courseSchema = new mongoose.Schema({
               userType: {
                 type: String,
                 enum: ["Student", "Instructor"],
+              },
+              answer: {
+                type: String,
+              },
+              answeredOn: {
+                type: Date,
+                default: Date.now,
               },
             },
           ],
@@ -221,6 +249,10 @@ const courseSchema = new mongoose.Schema({
 //   const result = await Course.find({ title: { $regex: new RegExp(query, 'i') } });
 //   console.log(result)
 //   return result;
+// }
+
+// courseSchema.statics.findCourse = async function (_id){
+//   const
 // }
 
 const Course = mongoose.model("Course", courseSchema);
