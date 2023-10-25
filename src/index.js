@@ -11,9 +11,11 @@ const instructorRoutes = require("./routes/instructorRoutes");
 const studentRoutes = require("./routes/studentRoutes");
 const otpRoutes = require("./routes/otpRoutes");
 const courseRoutes = require("./routes/courseRoutes");
+const adminRoutes = require("./routes/adminRoutes");
 const Student = require("./models/student");
 const { courseEnroll } = require("./controllers/Course/courseEnroll");
 const studentAuthMiddleware = require("./middleware/studentAuthMiddleware");
+const Payment = require("./models/payment");
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 const app = express();
@@ -44,16 +46,30 @@ app.post(
     switch (event.type) {
       case "payment_intent.succeeded":
         const paymentIntentSucceeded = event.data.object;
+        console.log(paymentIntentSucceeded)
         const metadata = paymentIntentSucceeded.metadata;
         const studentId = metadata.studentId;
         const courseId = metadata.courseId;
         const student = await Student.findById(studentId);
         student.enrolled.push({
           id: courseId,
-          progress: 0,
+          progress: {
+            section:0,
+            videoNumber:0
+          },
         });
 
         await student.save();
+        const newPayment = new Payment({
+          student: studentId,
+          course: courseId,
+          paymentDetails:{
+            checkoutSession:paymentIntentSucceeded.id,
+            price: paymentIntentSucceeded.amount
+          }
+        })
+
+        await newPayment.save()
         break;
 
       default:
@@ -81,6 +97,7 @@ app.use("/api", instructorRoutes);
 app.use("/api", studentRoutes);
 app.use("/api", otpRoutes);
 app.use("/api", courseRoutes);
+app.use("/api", adminRoutes);
 
 app.post("/api/create-checkout-session", studentAuthMiddleware, courseEnroll);
 

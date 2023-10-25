@@ -111,6 +111,10 @@ const studentSchema = new mongoose.Schema({
     enum: ["registered", "pending"],
     default: "pending",
   },
+  createdAt:{
+    type:Date,
+    default: Date.now
+  },
   tokens: [
     {
       token: {

@@ -242,6 +242,12 @@ const courseSchema = new mongoose.Schema({
   updatedAt: {
     type: Date,
   },
+
+  status:{
+    type: String,
+    enum:["pending","published"],
+    default: "pending"
+  }
 });
 
 // async function fuzzySearch(query) {
