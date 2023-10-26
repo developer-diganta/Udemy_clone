@@ -6,13 +6,13 @@ const addQuestion = async (req, res) => {
     const course = await Course.findById(req.body.courseId);
     const checkifenrolled = req.student.enrolled.filter(
       (course) =>
-        JSON.stringify(course.id) === JSON.stringify(req.body.courseId)
+        JSON.stringify(course.id) === JSON.stringify(req.body.courseId),
     );
     if (checkifenrolled.length) {
       course.questionAnswers.push({
         title: req.body.title,
         description: req.body.description,
-        askedBy:req.student._id,
+        askedBy: req.student._id,
         answers: [],
       });
     }

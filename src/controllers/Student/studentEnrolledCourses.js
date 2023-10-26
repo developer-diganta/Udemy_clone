@@ -8,7 +8,7 @@ const studentEnrolledCourses = async (req, res) => {
       { $match: { _id: studentId } },
       {
         $lookup: {
-          from: "courses", // Assuming the name of the "Course" collection is "courses"
+          from: "courses",
           localField: "enrolled.id",
           foreignField: "_id",
           as: "enrolledCourses",

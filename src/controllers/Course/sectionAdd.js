@@ -11,9 +11,9 @@ const sectionAdd = async (req, res) => {
       title: req.body.title,
       videos: [
         {
-          title:"Add Your Video Here",
-          videoLink:"no link"
-        }
+          title: "Add Your Video Here",
+          videoLink: "no link",
+        },
       ],
     });
     await course.save();

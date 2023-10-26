@@ -1,4 +1,3 @@
-
 /*
 *****SCHEMA FOR PAYMENT*****
     
@@ -11,7 +10,6 @@
 */
 const mongoose = require("mongoose");
 
-
 const paymentSchema = new mongoose.Schema({
   student: {
     type: mongoose.Schema.Types.ObjectId,
@@ -23,18 +21,17 @@ const paymentSchema = new mongoose.Schema({
   },
   paymentDetails: {
     // To be filled later depending on payment gateway implemented
-    checkoutSession:{
-      type: String
+    checkoutSession: {
+      type: String,
     },
-    price:{
-      type:Number
+    price: {
+      type: Number,
     },
-    createdAt:{
+    createdAt: {
       type: Date,
-      default: Date.now
-    }
+      default: Date.now,
+    },
   },
 });
 const Payment = mongoose.model("Payment", paymentSchema);
-module.exports = Payment
-
+module.exports = Payment;

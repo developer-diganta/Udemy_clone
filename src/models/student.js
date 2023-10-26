@@ -67,13 +67,13 @@ const studentSchema = new mongoose.Schema({
         },
         progress: [
           {
-            section:{
-              type:Number
+            section: {
+              type: Number,
             },
-            videoNumber:{
-              type:Number
-            }
-          }
+            videoNumber: {
+              type: Number,
+            },
+          },
         ],
         enrolledDate: {
           type: Date,
@@ -111,9 +111,9 @@ const studentSchema = new mongoose.Schema({
     enum: ["registered", "pending"],
     default: "pending",
   },
-  createdAt:{
-    type:Date,
-    default: Date.now
+  createdAt: {
+    type: Date,
+    default: Date.now,
   },
   tokens: [
     {

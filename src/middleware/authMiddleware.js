@@ -29,7 +29,7 @@ const authMiddleware = async (req, res, next) => {
     req.token = token;
     next();
   } catch (error) {
-    console.log(error)
+    console.log(error);
     res.status(401).send({ error: "Please authenticate." });
   }
 };

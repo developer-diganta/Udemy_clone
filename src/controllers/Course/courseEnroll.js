@@ -3,7 +3,7 @@ let endpointSecret = process.env.END_POINT_SECRET;
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 const courseEnroll = async (req, res) => {
-  console.log(req.body)
+  console.log(req.body);
   const course = await Course.findById(req.body.courseId);
 
   const student = req.student;
@@ -11,7 +11,7 @@ const courseEnroll = async (req, res) => {
   const enrolledIds = student.enrolled.map((course) => course.id);
 
   if (enrolledIds.includes(course._id)) {
-    throw new Error("Already Enrolled")
+    throw new Error("Already Enrolled");
     // res.status(400).send({ error: "Already Enrolled" });
     return;
   }
@@ -40,10 +40,8 @@ const courseEnroll = async (req, res) => {
     res.status(200).send({ url: session.url });
   } catch (error) {
     console.log(error);
-    res.status(400).send(error)
+    res.status(400).send(error);
   }
-
-
 };
 
 module.exports = {
