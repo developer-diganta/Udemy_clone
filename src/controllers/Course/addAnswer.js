@@ -1,9 +1,9 @@
 const Course = require("../../models/course");
 
 const addAnswer = async (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   try {
-    const update = await Course.updateOne(
+    const update = await Course.findOneAndUpdate(
       {
         _id: req.body.courseId,
         "questionAnswers._id": req.body.questionId,
@@ -17,8 +17,10 @@ const addAnswer = async (req, res) => {
           },
         },
       },
+      { new: true }
     );
-    console.log(update);
+    console.log(update.questionAnswers[7])
+    res.status(201).send(update)
   } catch (error) {
     console.log(error);
   }

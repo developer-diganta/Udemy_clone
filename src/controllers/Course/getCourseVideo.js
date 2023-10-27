@@ -38,7 +38,7 @@ const getCourseVideo = (req, res) => {
     "Content-Range": `bytes ${start}-${end}/${fileSize}`,
     "Accept-Ranges": "bytes",
     "Content-Length": chunkSize,
-    "Content-Type": "video/mp4", // Adjust according to your video format
+    "Content-Type": "video/mp4",
   });
 
   file.pipe(res);
