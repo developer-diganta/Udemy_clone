@@ -21,6 +21,7 @@ const { addQuestion } = require("../controllers/Course/addQuestion");
 const { addAnswer } = require("../controllers/Course/addAnswer");
 const { addRating } = require("../controllers/Course/addRating");
 const { studentProfile } = require("../controllers/Student/studentProfile");
+const { studentTokenVerify } = require("../controllers/Student/studentTokenVerify");
 
 router.post("/student", studentSignUp);
 router.post("/student/login", studentLogIn);
@@ -51,5 +52,7 @@ router.patch(
 router.patch("/student/course/review", studentAuthMiddleware, addRating);
 
 router.get("/student", studentProfile);
+
+router.post("/student/verify", studentAuthMiddleware, studentTokenVerify)
 
 module.exports = router;

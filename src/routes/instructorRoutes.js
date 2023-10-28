@@ -30,6 +30,8 @@ const {
   instructorLogout,
 } = require("../controllers/Instructor/instructorLogout");
 const { sectionDeletion } = require("../controllers/Course/sectionDeletion");
+const { instructorTokenVerify } = require("../controllers/Instructor/instructoTokenVerify");
+const { publishCourse } = require("../controllers/Instructor/publishCourse");
 
 router.post("/instructor", instructorSignUp);
 router.post("/instructor/login", instructorLogIn);
@@ -55,4 +57,8 @@ router.patch(
 );
 router.patch("/instructor/logout", authMiddleware, instructorLogout);
 router.delete("/instructor/section/delete", authMiddleware, sectionDeletion);
+router.post("/instructor/verify", authMiddleware, instructorTokenVerify)
+
+router.patch("/instructor/status", authMiddleware, publishCourse)
+
 module.exports = router;
