@@ -20,10 +20,12 @@ const instructorLogIn = async (req, res) => {
       email: instructor.email,
       token,
       name: instructor.name,
+      type:"instructor"
     });
   } catch (error) {
     console.log(error);
-    res.status(400).send({ message: "Invalid Credentials" });
+    res.status(400).send({ message: error.message });
+
   }
 };
 

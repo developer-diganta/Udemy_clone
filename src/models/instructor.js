@@ -187,9 +187,6 @@ instructorSchema.statics.findByCredentials = async (email, password) => {
     throw new Error("Login Overflow");
   }
 
-  if (instructor.status === "pending") {
-    throw new Error("Account Not Verified");
-  }
 
   const isMatch = await bcrypt.compare(password, instructor.password);
 

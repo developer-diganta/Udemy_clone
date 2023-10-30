@@ -13,12 +13,13 @@ const studentLogIn = async (req, res) => {
     );
 
     const token = await student.generateAuthToken();
-
+    
     res.send({
       message: "Success",
       _id: student._id,
       email: student.email,
       token,
+      status:student.status
     });
   } catch (error) {
     console.log(error.message);

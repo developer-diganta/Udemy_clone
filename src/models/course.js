@@ -134,10 +134,7 @@ const courseSchema = new mongoose.Schema({
     type: String,
     default:
       "https://creazilla-store.fra1.digitaloceanspaces.com/emojis/42602/play-button-emoji-clipart-md.png",
-    validate: {
-      validator: (value) => validator.isURL(value),
-      message: "Invalid URL for thumbnail image.",
-    },
+
   },
 
   requirements: {
