@@ -2,6 +2,13 @@ const range = require("range-parser");
 const path = require("path");
 const fs = require("fs");
 
+/**
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
+ */
+
 const getCourseVideo = (req, res) => {
   const filePath = path.join(
     __dirname,

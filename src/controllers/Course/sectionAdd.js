@@ -10,10 +10,7 @@ const sectionAdd = async (req, res) => {
     course.lessons.splice(index + 1, 0, {
       title: req.body.title,
       videos: [
-        {
-          title: "Add Your Video Here",
-          videoLink: "no link",
-        },
+
       ],
     });
     await course.save();

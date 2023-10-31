@@ -42,9 +42,11 @@ const courseSchema = new mongoose.Schema({
     trim: true,
     required: true,
     minlength: 4,
-    maxlength: 50,
+    maxlength: 100,
     validate: {
-      validator: (value) => validator.isAlphanumeric(value.replace(/\s/g, "")),
+      validator: (value) => {
+        return /^[a-zA-Z0-9,!?&() ]+$/.test(value);
+      },
       message: "Invalid characters in title",
     },
   },
@@ -52,7 +54,7 @@ const courseSchema = new mongoose.Schema({
   description: {
     type: String,
     default: "",
-    maxLength: 500,
+    maxLength: 5000,
   },
 
   instructor: {
@@ -88,6 +90,7 @@ const courseSchema = new mongoose.Schema({
     validate: {
       validator: (value) => {
         if (isNaN(value)) return false;
+        if(value<0) return false;
 
         const decimalPlaces = (value.toString().split(".")[1] || "").length;
         return decimalPlaces <= 2;
@@ -98,7 +101,7 @@ const courseSchema = new mongoose.Schema({
 
   discount: {
     type: Number,
-    min: 10,
+    min: 0,
     max: 100,
   },
 
