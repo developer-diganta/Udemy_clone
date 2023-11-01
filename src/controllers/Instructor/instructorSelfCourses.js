@@ -14,3 +14,4 @@ const instructorSelfCourses = async (req, res) => {
 module.exports = {
   instructorSelfCourses,
 };
+

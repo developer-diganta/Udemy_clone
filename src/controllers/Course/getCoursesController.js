@@ -9,6 +9,9 @@ const getCoursesController = async (req, res) => {
     sortObject[sortBy] = parseInt(sortOrder);
     const courses = await Course.aggregate([
       {
+        $match: { status: "active" } 
+      },
+      {
         $lookup: {
           from: "instructors",
           localField: "instructor",

@@ -58,4 +58,5 @@ router.post("/student/verify", studentAuthMiddleware, studentTokenVerify);
 
 router.patch("/student/logout", studentAuthMiddleware, studentLogout)
 
+
 module.exports = router;

@@ -2,7 +2,7 @@ const Course = require("../../models/course");
 const Fuse = require("fuse.js");
 
 const fuzzySearchController = async (req, res) => {
-  const allCourses = await Course.find({});
+  const allCourses = await Course.find({"status":"active"});
 
   const fuseOptions = {
     // isCaseSensitive: false,

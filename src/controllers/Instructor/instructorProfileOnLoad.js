@@ -1,12 +1,11 @@
 const Instructor = require("../../models/instructor");
 
-const instructorProfile = async (req, res) => {
+const instructorProfileOnLoad = async (req, res) => {
   try {
-    const instructor = await Instructor.findById(req.body.id, {
+    const instructor = await Instructor.findById(req.query.id, {
       password: 0,
       tokens: 0,
     });
-    console.log(instructor);
     res.status(200).send(instructor);
   } catch (error) {
     console.log(error);
@@ -15,5 +14,5 @@ const instructorProfile = async (req, res) => {
 };
 
 module.exports = {
-  instructorProfile,
+  instructorProfileOnLoad,
 };

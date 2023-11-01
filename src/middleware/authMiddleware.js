@@ -3,7 +3,7 @@ const Instructor = require("../../src/models/instructor");
 
 const authMiddleware = async (req, res, next) => {
   try {
-    // console.log(req.body);
+    console.log(req.body);
     const token = req.body.token;
 
     // const token = req.header('Authorization').replace('Bearer ', '');

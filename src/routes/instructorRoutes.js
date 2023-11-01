@@ -29,6 +29,10 @@ const {
 const {
   instructorLogout,
 } = require("../controllers/Instructor/instructorLogout");
+
+const {
+  instructorProfileOnLoad,
+} = require("../controllers/Instructor/instructorProfileOnLoad");
 const { sectionDeletion } = require("../controllers/Course/sectionDeletion");
 const { instructorTokenVerify } = require("../controllers/Instructor/instructoTokenVerify");
 const { publishCourse } = require("../controllers/Instructor/publishCourse");
@@ -36,6 +40,7 @@ const { verifyCourseOwnership } = require("../controllers/Instructor/verifyCours
 const { instructorProfile } = require("../controllers/Instructor/instructorProfile");
 const { getAllTeachers, getAllCourses } = require("../controllers/Instructor/getAllCourses");
 const { editCourse } = require("../controllers/Course/editCourse");
+const { coursePurchases } = require("../controllers/Course/coursePurchases");
 
 router.post("/instructor", instructorSignUp);
 router.post("/instructor/login", instructorLogIn);
@@ -65,7 +70,7 @@ router.post("/instructor/verify", authMiddleware, instructorTokenVerify)
 
 router.patch("/instructor/status", authMiddleware, publishCourse)
 router.post("/instructor/courseverify", authMiddleware, verifyCourseOwnership)
-router.get("/instructor", instructorProfile);
+router.get("/instructor", instructorProfileOnLoad);
 router.patch("/instructor/editcourse", authMiddleware, editCourse) 
-
+router.post("/instructor/course/purchases", authMiddleware, coursePurchases)
 module.exports = router;
