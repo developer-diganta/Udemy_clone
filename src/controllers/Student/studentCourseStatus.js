@@ -1,12 +1,15 @@
 const studentCourseStatus = async (req, res) => {
   try {
     console.log(req.student);
-    await req.student.enrolled[parseInt(req.body.section)].progress.push({
-      section: parseInt(req.body.section),
-      videoNumber: parseInt(req.body.videoNumber),
-    });
-    const y = await req.student.save();
-    console.log(y);
+    const courseId = req.body.courseId;
+    const section = parseInt(req.body.section);
+    const videoNumber = parseInt(req.body.videoNumber);
+    const courseIndex = await req.student.enrolled.findIndex(course => JSON.stringify(course.id) === JSON.stringify(courseId));
+console.log(courseIndex)
+    await req.student.enrolled[courseIndex].progress.push({ section, videoNumber });
+
+   await req.student.save();
+    // console.log(y);
     res.status(201).send({ message: "Updated" });
   } catch (error) {
     console.log(error);
