@@ -4,12 +4,13 @@ const { allInstructors } = require("../controllers/Instructor/allInstructors");
 const { adminSignIn } = require("../controllers/Admin/adminSignIn");
 const { getInstructorName } = require("../controllers/Admin/getInstructorName");
 const { updateStatus } = require("../controllers/Course/updateStatus");
+const adminAuthMiddleware = require("../middleware/adminAuthMiddleware");
 const router = express.Router();
 
-router.get("/admin/students", allStudents);
-router.get("/admin/instructors", allInstructors);
+router.post("/admin/students",adminAuthMiddleware, allStudents);
+router.post("/admin/instructors",adminAuthMiddleware, allInstructors);
 router.post("/admin/signin", adminSignIn);
-router.get("/admin/instructorname/:id", getInstructorName);
-router.patch("/admin/course/status", updateStatus);
+router.post("/admin/instructorname/:id",adminAuthMiddleware, getInstructorName);
+router.patch("/admin/course/status",adminAuthMiddleware, updateStatus);
 
 module.exports = router;

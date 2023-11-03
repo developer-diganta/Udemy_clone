@@ -1,7 +1,6 @@
 const Course = require("../../models/course");
 
 const addRating = async (req, res) => {
-  console.log("_-----------------------------------------------------------_");
   try {
     const course = await Course.findById(req.body.courseId);
     const checkForPreviousReview = course.reviews.filter(
