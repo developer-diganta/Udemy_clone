@@ -6,6 +6,7 @@ const studentTokenVerify= async (req,res) => {
         }else{
             message="pending"
         }
+        console.log(message)
         res.status(200).send(message)
     }catch(error){
         res.status(400).send(error)

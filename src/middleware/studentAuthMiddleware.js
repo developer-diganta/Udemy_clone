@@ -21,6 +21,7 @@ const studentAuthMiddleware = async (req, res, next) => {
     );
 
     if (!student) {
+      console.log(student)
       throw new Error();
     }
 

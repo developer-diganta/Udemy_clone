@@ -54,8 +54,8 @@ describe("studentSignUp", () => {
     expect(response.body).toEqual({
       message: "Success",
       email: "test@test.com",
-      _id: expect.any(String),
-      type: "Student",
+      otpValidation:0,
+      type: "student",
     });
   });
 
@@ -66,7 +66,7 @@ describe("studentSignUp", () => {
 
     expect(response.statusCode).toBe(400);
     expect(response.text).toBe(
-      '{"name":"JsonWebTokenError","message":"jwt malformed"}',
+      '{\"index\":0,\"code\":11000,\"keyPattern\":{\"email\":1},\"keyValue\":{\"email\":\"test@test.com\"}}',
     );
   });
 });

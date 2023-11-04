@@ -6,8 +6,7 @@ require("dotenv").config();
 
 const instructormock = {
   name: "John Doe",
-  token:
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAdGVzdC5jb20iLCJpYXQiOjE2OTY1OTYxMTd9.ZycXOZQT_pLB2ieRG1oPAJxXkwIu4k5jWOhOL7_92qs",
+  email:"test@test.com",
   password: "StrongPassword123!",
   bio: "I am a passionate instructor with expertise in various subjects.",
   profileImage: "https://example.com/profile-image.jpg",
@@ -23,13 +22,6 @@ const instructormock = {
   ],
 };
 
-const token = jwt.sign(
-  {
-    email: "test@test.com",
-  },
-  process.env.SECRET_KEY,
-);
-
 describe("instructorSignUp", () => {
   afterAll(async () => {
     await Instructor.findOneAndDelete({ email: "test@test.com" });
@@ -38,14 +30,14 @@ describe("instructorSignUp", () => {
   it("should sign up an instructor and return a token", async () => {
     const response = await request(app)
       .post("/api/instructor")
-      .send({ ...instructormock, token });
+      .send({ ...instructormock });
 
     expect(response.statusCode).toBe(201);
     expect(response.body).toEqual({
       message: "Success",
-      email: "test@test.com",
-      _id: expect.any(String),
-      type: "Instructor",
+      type: "instructor",
+      email:"test@test.com",
+      otpValidation:0
     });
   });
 
@@ -56,7 +48,7 @@ describe("instructorSignUp", () => {
 
     expect(response.statusCode).toBe(400);
     expect(response.text).toBe(
-      '{"name":"JsonWebTokenError","message":"invalid signature"}',
+      '{\"index\":0,\"code\":11000,\"keyPattern\":{\"email\":1},\"keyValue\":{\"email\":\"test@test.com\"}}',
     );
   });
 });

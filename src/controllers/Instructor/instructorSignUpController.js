@@ -2,25 +2,21 @@ const Instructor = require("../../models/instructor");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
-/*
-Signs Up a new user, and if the user is already present/enters invalid email returns an error
-Accepts data as per instructor schema and a token which is used to verify email
-*/
+/**
+ * Handles the sign-up process for instructors. 
+ * 
+ * @param {*} req - The HTTP request object containing instructor sign-up data.
+ * @param {*} res - The HTTP response object to send the response.
+ */
+
 
 const instructorSignUp = async (req, res) => {
   try {
-    console.log(req.body);
-    // const decoded = jwt.verify(req.body.token, process.env.SECRET_KEY);
-    // const email = decoded.email;
-    // const instructorObject = {
-    //   req.body,
-    // };
+
     const instructor = new Instructor(req.body);
 
     await instructor.save();
 
-    // const token = await instructor.generateAuthToken();
-    // res.header("Authorization", `Bearer ${token}`);
     res.status(201).json({
       message: "Success",
       type: "instructor",

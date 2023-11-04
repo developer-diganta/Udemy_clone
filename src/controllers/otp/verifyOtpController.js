@@ -4,10 +4,12 @@ const jwt = require("jsonwebtoken");
 const Instructor = require("../../models/instructor");
 const Student = require("../../models/student");
 
-/*
-Verifies OTP.
-Accepts the otp and a token that contains the email against which OTP is to be validated.
-*/
+/**
+ * Handles OTP verification for instructor and student sign-up.
+ * 
+ * @param {*} req - The HTTP request object containing OTP, email, and type (instructor or student).
+ * @param {*} res - The HTTP response object to send the response.
+ */
 
 const verifyOtp = async (req, res) => {
   console.log("HERE", req.body);

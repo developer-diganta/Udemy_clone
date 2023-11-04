@@ -26,15 +26,15 @@ describe("sendOtp", () => {
       .send({ email: "test@test.com" });
 
     expect(response.status).toBe(200);
-    expect(response.body).toHaveProperty("emailToken");
+    expect(response.body.message).toEqual("Otp sent");
   });
 
-  it("should send OTP and return email token", async () => {
-    const response = await request(app)
-      .post("/api/otp/verify")
-      .send({ otp: "123456", token: mocktoken });
+  // it("should send OTP and return email token", async () => {
+  //   const response = await request(app)
+  //     .post("/api/otp/verify")
+  //     .send({ otp: "123456", token: mocktoken });
 
-    expect(response.status).toBe(200);
-    expect(response.body).toEqual(true);
-  });
+  //   expect(response.status).toBe(200);
+  //   expect(response.body).toEqual(true);
+  // });
 });

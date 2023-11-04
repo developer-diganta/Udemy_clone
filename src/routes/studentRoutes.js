@@ -31,7 +31,7 @@ router.post(
   studentAuthMiddleware,
   studentEnrolledCourses,
 );
-router.get(
+router.post(
   "/student/checkifenrolled",
   studentAuthMiddleware,
   studentCheckIfEnrolled,
