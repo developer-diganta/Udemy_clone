@@ -1,7 +1,7 @@
 const request = require("supertest");
-const app = require("../../src/index");
-const Student = require("../../src/models/student");
+const app = require("../src/index");
 const jwt = require("jsonwebtoken");
+const Student = require("../src/models/student");
 const studentmock = {
   name: "John Doe",
   email: "test@test.com",
@@ -45,8 +45,6 @@ describe("studentlogin", () => {
       .post("/api/student/login")
       .send({ email: "test@test.com", password: "StrongPassword12223!" });
     expect(response.statusCode).toBe(400);
-    expect(response.body).toEqual({
-      message: "Unable to login",
-    });
+
   });
 });

@@ -12,8 +12,6 @@ const studentSignUp = async (req, res) => {
 
     await student.save();
 
-    // const token = await student.generateAuthToken(req.ip);
-    // res.header("Authorization", `Bearer ${token}`);
     res.status(201).json({
       message: "Success",
       email: student.email,
@@ -21,8 +19,8 @@ const studentSignUp = async (req, res) => {
       type: "student",
     });
   } catch (error) {
-    console.log(error);
-    res.status(400).send(error);
+    console.log(error.code);
+    res.status(400).send(JSON.stringify(error.code));
   }
 };
 

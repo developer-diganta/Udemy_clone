@@ -17,6 +17,7 @@ const Student = require("./models/student");
 const { courseEnroll } = require("./controllers/Course/courseEnroll");
 const studentAuthMiddleware = require("./middleware/studentAuthMiddleware");
 const Payment = require("./models/payment");
+const Course = require("./models/course");
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 const app = express();
@@ -70,6 +71,10 @@ app.post(
           },
         });
 
+        const course = await Course.findById(courseId);
+        course.enrollments = course.enrollments+1;
+        await course.save();
+
         await newPayment.save();
         break;
 
@@ -81,8 +86,6 @@ app.post(
   },
 );
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ extended: true, limit: "50mb" }));

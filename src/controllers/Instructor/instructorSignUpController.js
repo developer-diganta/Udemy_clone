@@ -24,8 +24,8 @@ const instructorSignUp = async (req, res) => {
       otpValidation: 0,
     });
   } catch (error) {
-    console.log(error);
-    res.status(400).send(error);
+    console.log(error.code);
+    res.status(400).send(JSON.stringify(error.code));
   }
 };
 

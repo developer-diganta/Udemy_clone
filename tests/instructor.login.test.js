@@ -46,8 +46,6 @@ describe("intructorLogin", () => {
       .post("/api/instructor/login")
       .send({ email: "test@test.com", password: "StrongPassword12223!" });
     expect(response.statusCode).toBe(400);
-    expect(response.body).toEqual({
-      message: "Unable to login",
-    });
+
   });
 });

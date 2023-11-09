@@ -9,7 +9,6 @@ const videoUploadController = async (req, res) => {
   console.log(req.body);
   try {
     const course = await Course.findById(courseID);
-
     course.lessons[subsectionToBeUpdated].videos.splice(
       videoToAddAfter + 1,
       0,
@@ -17,11 +16,10 @@ const videoUploadController = async (req, res) => {
         title,
         videoLink,
       },
-    );
-
-    console.log(course.lessons[subsectionToBeUpdated]);
-
-    await course.save();
+      );
+      
+      
+      await course.save();
 
     res.json({ message: "File uploaded and saved successfully" });
   } catch (error) {

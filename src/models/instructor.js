@@ -180,18 +180,18 @@ instructorSchema.statics.findByCredentials = async (email, password) => {
   const instructor = await Instructor.findOne({ email });
 
   if (!instructor) {
-    throw new Error("Unable to login");
+    throw new Error("User does not exist");
   }
 
-  if (instructor.tokens.length > 2) {
-    throw new Error("Login Overflow");
-  }
+  // if (instructor.tokens.length > 2) {
+  //   throw new Error("Login Overflow");
+  // }
 
 
   const isMatch = await bcrypt.compare(password, instructor.password);
 
   if (!isMatch) {
-    throw new Error("Unable to login");
+    throw new Error("Credentials Mismatch");
   }
 
   return instructor;

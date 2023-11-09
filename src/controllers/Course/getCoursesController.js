@@ -7,6 +7,10 @@ const getCoursesController = async (req, res) => {
     const limit = parseInt(req.query.limit);
     const sortObject = {};
     sortObject[sortBy] = parseInt(sortOrder);
+    console.log(req.query)
+    const c = await Course.find({})
+    console.log(c)
+
     const courses = await Course.aggregate([
       {
         $match: { status: "active" } 
@@ -41,7 +45,7 @@ const getCoursesController = async (req, res) => {
       },
     ]);
 
-    // console.log(courses);
+    console.log(courses);
 
     // console.log(courses);
 

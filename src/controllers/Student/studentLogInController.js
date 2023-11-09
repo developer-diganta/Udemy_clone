@@ -22,8 +22,7 @@ const studentLogIn = async (req, res) => {
       status:student.status
     });
   } catch (error) {
-    console.log(error.message);
-    res.status(400).send({ message: error.message });
+    res.status(400).send(error.message);
   }
 };
 

@@ -7,7 +7,9 @@ const adminMockToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6InV
 
 describe("get all instructors", () => {
     beforeAll(async () => {
+      await Instructor.deleteMany({})
       await Instructor.create(instructorMock);
+      
     });
     afterAll(async () => {
       await Instructor.findOneAndDelete({ email: "test@test.com" });

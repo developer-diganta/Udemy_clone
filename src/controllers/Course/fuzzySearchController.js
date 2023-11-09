@@ -24,6 +24,7 @@ const fuzzySearchController = async (req, res) => {
   const fuse = new Fuse(allCourses, fuseOptions);
 
   const results = fuse.search(req.query.search);
+  console.log(req.query.search)
   res.send(results);
   return;
 };

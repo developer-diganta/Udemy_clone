@@ -66,7 +66,7 @@ describe("studentSignUp", () => {
 
     expect(response.statusCode).toBe(400);
     expect(response.text).toBe(
-      '{\"index\":0,\"code\":11000,\"keyPattern\":{\"email\":1},\"keyValue\":{\"email\":\"test@test.com\"}}',
+      '11000',
     );
   });
 });

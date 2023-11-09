@@ -23,6 +23,10 @@ const { addRating } = require("../controllers/Course/addRating");
 const { studentProfile } = require("../controllers/Student/studentProfile");
 const { studentTokenVerify } = require("../controllers/Student/studentTokenVerify");
 const { studentLogout } = require("../controllers/Student/studentLogout");
+const { updatedStudentProfile } = require("../controllers/Student/updateStudentProfile");
+const { studentNote } = require("../controllers/Student/studentNote");
+const { studentUpdateNotes } = require("../controllers/Student/studentUpdateNotes");
+const { studentGetNotes } = require("../controllers/Student/studentGetNotes");
 
 router.post("/student", studentSignUp);
 router.post("/student/login", studentLogIn);
@@ -57,6 +61,9 @@ router.get("/student", studentProfile);
 router.post("/student/verify", studentAuthMiddleware, studentTokenVerify);
 
 router.patch("/student/logout", studentAuthMiddleware, studentLogout)
-
+router.patch("/student/profile", studentAuthMiddleware, updatedStudentProfile)
+router.patch("/student/submitnote", studentAuthMiddleware, studentNote)
+router.patch("/student/note", studentAuthMiddleware, studentUpdateNotes)
+router.get("/student/notes/:courseId", studentGetNotes)
 
 module.exports = router;
