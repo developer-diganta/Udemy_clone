@@ -3,6 +3,11 @@ const Fuse = require("fuse.js");
 
 const fuzzySearchController = async (req, res) => {
   const allCourses = await Course.find({"status":"active"});
+  if(req.query.search==="") {
+    let results = allCourses.map((x,i)=>{return {item:x,refIndex:i}})
+    res.status(200).send(results);
+    return;
+  }
 
   const fuseOptions = {
     // isCaseSensitive: false,
@@ -23,8 +28,11 @@ const fuzzySearchController = async (req, res) => {
 
   const fuse = new Fuse(allCourses, fuseOptions);
 
-  const results = fuse.search(req.query.search);
-  console.log(req.query.search)
+  let results = fuse.search(req.query.search);
+  console.log(results)
+  if(req.query.search==="") results = allCourses.map((x,i)=>{return {item:x,refIndex:i}})
+  console.log(results)
+
   res.send(results);
   return;
 };

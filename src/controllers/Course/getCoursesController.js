@@ -34,6 +34,8 @@ const getCoursesController = async (req, res) => {
           rating: 1,
           enrollments: 1,
           thumbnail: 1,
+          instructor:1,
+          price:1,
           instructorName: "$instructorInfo.name",
         },
       },

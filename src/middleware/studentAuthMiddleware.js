@@ -3,12 +3,12 @@ const Student = require("../../src/models/student");
 
 const studentAuthMiddleware = async (req, res, next) => {
   try {
-    console.log(req.body);
+    // console.log(req.body);
     const token = req.body.token;
     // const token = req.header('Authorization').replace('Bearer ', '');
     const decoded = jwt.verify(token, process.env.SECRET_KEY);
-    console.log("123");
-    console.log(decoded._id);
+    // console.log("123");
+    // console.log(decoded._id);
     const student = await Student.findOne(
       {
         _id: decoded._id,
@@ -21,7 +21,7 @@ const studentAuthMiddleware = async (req, res, next) => {
     );
 
     if (!student) {
-      console.log(student)
+      // console.log(student)
       throw new Error();
     }
 

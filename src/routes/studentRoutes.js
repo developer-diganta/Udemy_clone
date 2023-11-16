@@ -27,6 +27,7 @@ const { updatedStudentProfile } = require("../controllers/Student/updateStudentP
 const { studentNote } = require("../controllers/Student/studentNote");
 const { studentUpdateNotes } = require("../controllers/Student/studentUpdateNotes");
 const { studentGetNotes } = require("../controllers/Student/studentGetNotes");
+const { getName } = require("../controllers/Student/getName");
 
 router.post("/student", studentSignUp);
 router.post("/student/login", studentLogIn);
@@ -65,5 +66,6 @@ router.patch("/student/profile", studentAuthMiddleware, updatedStudentProfile)
 router.patch("/student/submitnote", studentAuthMiddleware, studentNote)
 router.patch("/student/note", studentAuthMiddleware, studentUpdateNotes)
 router.get("/student/notes/:courseId", studentGetNotes)
+router.get("/student/name", getName)
 
 module.exports = router;

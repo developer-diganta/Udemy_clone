@@ -1,6 +1,5 @@
 const studentCourseStatus = async (req, res) => {
   try {
-    console.log(req.student);
     const courseId = req.body.courseId;
     const section = parseInt(req.body.section);
     const videoNumber = parseInt(req.body.videoNumber);

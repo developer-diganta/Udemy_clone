@@ -6,7 +6,6 @@ const studentProfile = async (req, res) => {
       password: 0,
       tokens: 0,
     });
-    console.log(student);
     res.status(200).send(student);
   } catch (error) {
     console.log(error);

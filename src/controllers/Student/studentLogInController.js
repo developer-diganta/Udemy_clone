@@ -19,7 +19,9 @@ const studentLogIn = async (req, res) => {
       _id: student._id,
       email: student.email,
       token,
-      status:student.status
+      status:student.status,
+      name:student.name,
+      type:"student"
     });
   } catch (error) {
     res.status(400).send(error.message);
