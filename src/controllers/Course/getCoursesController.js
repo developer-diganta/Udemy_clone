@@ -36,6 +36,7 @@ const getCoursesController = async (req, res) => {
           thumbnail: 1,
           instructor:1,
           price:1,
+          reviews:1,
           instructorName: "$instructorInfo.name",
         },
       },
