@@ -4,7 +4,7 @@ const updateStatus = async (req,res)=>{
     try{
         console.log(req.body)
         const course = await Course.findOneAndUpdate({_id:req.body.courseId.id},{status:"active"});
-        console.log(course)
+        console.log(course.status)
         res.status(200).send(course)
     }catch(error){
         console.log(error)

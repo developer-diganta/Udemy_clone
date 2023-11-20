@@ -22,7 +22,7 @@ const addAnswer = async (req, res) => {
     console.log(update.questionAnswers[7])
     res.status(201).send(update)
   } catch (error) {
-    console.log(error);
+    res.status(400).send(error)
   }
 };
 
