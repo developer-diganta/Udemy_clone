@@ -1,4 +1,5 @@
 const Course = require("../../models/course");
+const logger = require("../../logger/logger")
 
 const getCoursesController = async (req, res) => {
   try {

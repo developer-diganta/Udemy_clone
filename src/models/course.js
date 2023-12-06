@@ -226,12 +226,24 @@ const courseSchema = new mongoose.Schema({
           {
             title: {
               type: String,
-              required: true,
+              // required: true,
             },
             videoLink: {
               type: String,
-              required: true,
+              // required: true,
             },
+            type:{
+              type: String
+            },
+            description:{
+              type: String
+            },
+            input:{
+              type:String
+            },
+            output:{
+              type:String
+            }
           },
         ],
       },

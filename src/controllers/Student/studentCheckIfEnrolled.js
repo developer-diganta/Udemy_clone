@@ -1,3 +1,5 @@
+const logger = require("../../logger/logger")
+
 const studentCheckIfEnrolled = async (req, res) => {
   try {
     const id = req.body.courseId;
@@ -10,6 +12,7 @@ const studentCheckIfEnrolled = async (req, res) => {
         break;
       }
     }
+    logger.logger.log("info","Check Student Enrolled")
     res.status(200).send({ enrolled });
   } catch (error) {
     console.log(error);

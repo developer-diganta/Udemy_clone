@@ -1,4 +1,5 @@
 const Student = require("../../models/student");
+const logger = require("../../logger/logger")
 
 const studentLogout = async (req, res) => {
   try{
@@ -8,7 +9,7 @@ const studentLogout = async (req, res) => {
       },
     });
   
-    console.log(r);
+    logger.logger.log("info","Student Logout")
     res.send({ message: "123" });
   }catch(error){
     console.log(error)

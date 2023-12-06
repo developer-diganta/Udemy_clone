@@ -1,4 +1,5 @@
 const Student = require("../../models/student");
+const logger = require("../../logger/logger")
 
 const studentProfile = async (req, res) => {
   try {
@@ -6,6 +7,7 @@ const studentProfile = async (req, res) => {
       password: 0,
       tokens: 0,
     });
+    logger.logger.log("info","Fetch Student Profile")
     res.status(200).send(student);
   } catch (error) {
     console.log(error);

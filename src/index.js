@@ -6,7 +6,7 @@ const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
 const range = require("range-parser");
-
+ require("./logger/logger")
 const instructorRoutes = require("./routes/instructorRoutes");
 const studentRoutes = require("./routes/studentRoutes");
 const otpRoutes = require("./routes/otpRoutes");

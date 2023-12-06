@@ -1,5 +1,6 @@
 const Course = require("../../models/course");
 const Instructor = require("../../models/instructor");
+const logger = require("../../logger/logger")
 
 const instructorFetchSingleCourse = async (req, res) => {
   try {
@@ -17,6 +18,7 @@ const instructorFetchSingleCourse = async (req, res) => {
     if (!course) {
       throw new Error("No Course Found");
     }
+    logger.logger.log("info","Instructor Course Fetch")
     res.status(201).send({ course });
   } catch (error) {
     console.log(error);

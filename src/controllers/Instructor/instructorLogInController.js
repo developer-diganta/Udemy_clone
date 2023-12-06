@@ -1,4 +1,5 @@
 const Instructor = require("../../models/instructor");
+const logger = require("../../logger/logger")
 
 /*
 Logs In an existing user, and if the user is not present returns an error
@@ -13,6 +14,7 @@ const instructorLogIn = async (req, res) => {
     );
 
     const token = await instructor.generateAuthToken();
+    logger.logger.log("info","Instructor Login")
 
     res.send({
       message: "Success",

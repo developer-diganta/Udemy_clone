@@ -1,4 +1,5 @@
 const Course = require("../../models/course");
+const logger = require("../../logger/logger")
 
 const addQuestion = async (req, res) => {
   try {
@@ -17,6 +18,8 @@ const addQuestion = async (req, res) => {
       });
     }
     await course.save();
+    logger.logger.log("info","Add Question")
+
     res.status(200).send({ course });
   } catch (error) {
     console.log(error);

@@ -1,5 +1,6 @@
 const Course = require("../../models/course");
 const Instructor = require("../../models/instructor");
+const logger = require("../../logger/logger")
 
 const allInstructors = async (req, res) => {
   try {
@@ -24,6 +25,8 @@ const allInstructors = async (req, res) => {
       }
     }
     const instructors = instructorsList;
+    logger.logger.log("info","Fetch All Instructors")
+
     res.status(200).send(instructors);
   } catch (error) {
     console.log(error);

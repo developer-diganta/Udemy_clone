@@ -1,12 +1,11 @@
 const Instructor = require("../../models/instructor");
 const Course = require("../../models/course");
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+const logger = require("../../logger/logger")
 
 const instructorCourseAddition = async (req, res) => {
   try {
     const { _id, email, token, course } = req.body;
-    // const instructorCheck = await Instructor.verifyAuthToken(token, email);
-    // console.log(instructorCheck);
     const newCourse = new Course({ ...course, instructor: _id });
 
     const product = await stripe.products.create({
@@ -30,6 +29,7 @@ const instructorCourseAddition = async (req, res) => {
     newCourse.stripePriceId = price.id;
 
     const courseSaveResponse = await newCourse.save();
+    logger.logger.log("info","Add Course")
 
     res.status(201).send({
       message: "Course Added",

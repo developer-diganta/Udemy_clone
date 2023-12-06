@@ -1,4 +1,5 @@
 const Course = require("../../models/course");
+const logger = require("../../logger/logger")
 
 const sectionDeletion = async (req, res) => {
   try {

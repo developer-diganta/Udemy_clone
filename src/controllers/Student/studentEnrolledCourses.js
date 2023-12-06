@@ -1,5 +1,7 @@
 const Student = require("../../models/student");
 const mongoose = require("mongoose");
+const logger = require("../../logger/logger")
+
 const studentEnrolledCourses = async (req, res) => {
   try {
     const studentId = req.student._id;
@@ -21,7 +23,8 @@ const studentEnrolledCourses = async (req, res) => {
       },
     ]);
 
-    console.log(courses[0].enrolledCourses);
+    logger.logger.log("info","Student Enrolled Courses")
+
     res.status(201).send(courses[0].enrolledCourses);
   } catch (error) {
     console.log(error);

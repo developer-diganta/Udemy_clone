@@ -1,6 +1,7 @@
 const Course = require("../../models/course");
 let endpointSecret = process.env.END_POINT_SECRET;
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+const logger = require("../../logger/logger")
 
 const courseEnroll = async (req, res) => {
   console.log(req.body);
@@ -36,7 +37,7 @@ const courseEnroll = async (req, res) => {
       success_url: `http://localhost:8080/student/learn?courseId=${req.body.courseId}&payment=success`,
       cancel_url: `http://localhost:8080/student/enroll/${req.body.courseId}?payment=failed`,
     });
-    console.log(session);
+    logger.logger.log("Purchase")
     res.status(200).send({ url: session.url });
   } catch (error) {
     console.log(error);

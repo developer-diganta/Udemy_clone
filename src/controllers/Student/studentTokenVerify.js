@@ -1,3 +1,5 @@
+const logger = require("../../logger/logger")
+
 const studentTokenVerify= async (req,res) => {
     try{
         let message = ""
@@ -6,7 +8,7 @@ const studentTokenVerify= async (req,res) => {
         }else{
             message="pending"
         }
-        console.log(message)
+        logger.logger.log("info","Student Token Verify")
         res.status(200).send(message)
     }catch(error){
         res.status(400).send(error)

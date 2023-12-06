@@ -1,12 +1,14 @@
 const Course = require("../../models/course");
 const logger = require("../../logger/logger")
 
-const videoUploadController = async (req, res) => {
+const execiseUpload = async (req, res) => {
   const title = req.body.title;
+  const description = req.body.description;
+  const input = req.body.input;
+  const output = req.body.output;
   const videoToAddAfter = parseInt(req.body.videoToAddAfter);
   const subsectionToBeUpdated = req.body.subsectionToBeUpdated;
   const courseID = req.body.courseId;
-  const videoLink = req.body.fileName;
   console.log(req.body);
   try {
     const course = await Course.findById(courseID);
@@ -15,7 +17,10 @@ const videoUploadController = async (req, res) => {
       0,
       {
         title,
-        videoLink,
+        description,
+        input,
+        output,
+        type:"exercise"
       },
       );
       
@@ -30,5 +35,5 @@ const videoUploadController = async (req, res) => {
 };
 
 module.exports = {
-  videoUploadController,
+  execiseUpload
 };

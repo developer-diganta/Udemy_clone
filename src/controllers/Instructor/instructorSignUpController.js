@@ -9,6 +9,7 @@ require("dotenv").config();
  * @param {*} res - The HTTP response object to send the response.
  */
 
+const logger = require("../../logger/logger")
 
 const instructorSignUp = async (req, res) => {
   try {
@@ -16,7 +17,7 @@ const instructorSignUp = async (req, res) => {
     const instructor = new Instructor(req.body);
 
     await instructor.save();
-
+    logger.logger.log("info","Instructor Sign Up")
     res.status(201).json({
       message: "Success",
       type: "instructor",

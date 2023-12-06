@@ -24,7 +24,8 @@
     "range-parser": "^1.2.1",
     "stripe": "^14.1.0",
     "supertest": "^6.3.3",
-    "validator": "^13.11.0"
+    "validator": "^13.11.0",
+    "winston": "^3.11.0"
   },
   "devDependencies": {
     "nyc": "^15.1.0"

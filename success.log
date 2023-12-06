@@ -1,0 +1,23 @@
+{"level":"info","message":"Successfull Login","service":"user-service","timestamp":"2023-12-05T06:52:25.651Z"}
+{"level":"info","message":"Successfull Login","service":"user-service","timestamp":"2023-12-06T06:17:03.971Z"}
+{"level":"info","message":"Student Enrolled Courses","service":"user-service","timestamp":"2023-12-06T12:25:45.503Z"}
+{"level":"info","message":"Student Enrolled Courses","service":"user-service","timestamp":"2023-12-06T12:26:10.643Z"}
+{"level":"info","message":"Fetch Student Profile","service":"user-service","timestamp":"2023-12-06T12:26:15.677Z"}
+{"level":"info","message":"Student Enrolled Courses","service":"user-service","timestamp":"2023-12-06T12:43:19.580Z"}
+{"level":"info","message":"Fetch Student Profile","service":"user-service","timestamp":"2023-12-06T12:52:48.418Z"}
+{"level":"info","message":"Student Enrolled Courses","service":"user-service","timestamp":"2023-12-06T12:54:29.821Z"}
+{"level":"info","message":"Student Enrolled Courses","service":"user-service","timestamp":"2023-12-06T12:54:32.029Z"}
+{"level":"info","message":"Fetch Student Profile","service":"user-service","timestamp":"2023-12-06T12:54:36.059Z"}
+{"level":"info","message":"Student Enrolled Courses","service":"user-service","timestamp":"2023-12-06T12:54:38.104Z"}
+{"level":"info","message":"Student Enrolled Courses","service":"user-service","timestamp":"2023-12-06T12:54:39.454Z"}
+{"level":"info","message":"Fetch Student Profile","service":"user-service","timestamp":"2023-12-06T12:54:41.813Z"}
+{"level":"info","message":"Student Token Verify","service":"user-service","timestamp":"2023-12-06T12:54:41.850Z"}
+{"level":"info","message":"Student Enrolled Courses","service":"user-service","timestamp":"2023-12-06T12:54:42.018Z"}
+{"level":"info","message":"Student Enrolled Courses","service":"user-service","timestamp":"2023-12-06T13:00:29.540Z"}
+{"level":"info","message":"Fetch Student Profile","service":"user-service","timestamp":"2023-12-06T13:00:32.655Z"}
+{"level":"info","message":"Student Update Profile","service":"user-service","timestamp":"2023-12-06T13:00:43.615Z"}
+{"level":"info","message":"Fetch Student Profile","service":"user-service","timestamp":"2023-12-06T13:00:46.736Z"}
+{"level":"info","message":"Student Token Verify","service":"user-service","timestamp":"2023-12-06T13:00:46.781Z"}
+{"level":"info","message":"Fetch Student Profile","service":"user-service","timestamp":"2023-12-06T13:00:46.843Z"}
+{"level":"info","message":"Student Enrolled Courses","service":"user-service","timestamp":"2023-12-06T13:01:47.675Z"}
+{"level":"info","message":"Student Enrolled Courses","service":"user-service","timestamp":"2023-12-06T13:01:53.980Z"}

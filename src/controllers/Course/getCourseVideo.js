@@ -1,6 +1,7 @@
 const range = require("range-parser");
 const path = require("path");
 const fs = require("fs");
+const logger = require("../../logger/logger")
 
 /**
  * 

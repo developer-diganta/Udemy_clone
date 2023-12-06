@@ -5,6 +5,8 @@ Logs In an existing user, and if the user is not present returns an error
 Accepts email and password in the request body
 */
 
+const logger = require("../../logger/logger")
+
 const studentLogIn = async (req, res) => {
   try {
     const student = await Student.findByCredentials(
@@ -13,7 +15,7 @@ const studentLogIn = async (req, res) => {
     );
 
     const token = await student.generateAuthToken();
-    
+    logger.logger.log("info","Successfull Login")
     res.send({
       message: "Success",
       _id: student._id,

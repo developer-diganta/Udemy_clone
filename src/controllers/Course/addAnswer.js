@@ -1,7 +1,8 @@
 const Course = require("../../models/course");
+const logger = require("../../logger/logger")
 
 const addAnswer = async (req, res) => {
-  // console.log(req.body);
+  logger.logger.log("info","Add Answer")
   try {
     const update = await Course.findOneAndUpdate(
       {

@@ -1,4 +1,6 @@
 const Course = require("../../models/course");
+const logger = require("../../logger/logger")
+
 const deleteVideo = async (req, res) => {
   const indexOfVideo = req.body.indexOfVideo;
   const subsectionToBeUpdated = req.body.subsectionToBeUpdated;

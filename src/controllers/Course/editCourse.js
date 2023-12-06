@@ -1,4 +1,5 @@
 const Course = require("../../models/course")
+const logger = require("../../logger/logger")
 
 const editCourse = async(req,res) => {
     console.log(req.body.updates.courseMaterials)
