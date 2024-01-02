@@ -65,15 +65,31 @@ const studentSchema = new mongoose.Schema({
           type: mongoose.Schema.Types.ObjectId,
           ref: "Course",
         },
-        progress: {
-          completed: {
-            type: Number,
+        progress: [
+          {
+            section: {
+              type: Number,
+            },
+            videoNumber: {
+              type: Number,
+            },
           },
-        },
+        ],
         enrolledDate: {
           type: Date,
           default: Date.now,
         },
+        notes:{
+          type: [
+          {
+            header:{
+              type:String
+            },
+            description:{
+              type:String
+            }
+          }
+        ]}
       },
     ],
   },
@@ -100,6 +116,15 @@ const studentSchema = new mongoose.Schema({
         },
       },
     ],
+  },
+  status: {
+    type: String,
+    enum: ["registered", "pending"],
+    default: "pending",
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
   },
   tokens: [
     {
@@ -148,17 +173,17 @@ studentSchema.statics.findByCredentials = async (email, password) => {
   const student = await Student.findOne({ email });
 
   if (!student) {
-    throw new Error("Unable to login");
+    throw new Error("Student Does Not Exist");
   }
 
-  if (student.tokens.length > 2) {
-    throw new Error("Login Overflow");
-  }
+  // if (student.tokens.length > 2) {
+  //   throw new Error("Login Overflow");
+  // }
 
   const isMatch = await bcrypt.compare(password, student.password);
 
   if (!isMatch) {
-    throw new Error("Unable to login");
+    throw new Error("Credentials Mismatch");
   }
 
   return student;

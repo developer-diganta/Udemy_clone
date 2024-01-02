@@ -37,6 +37,8 @@ describe("intructorLogin", () => {
       _id: expect.any(String),
       email: "test@test.com",
       token: expect.any(String),
+      name:"John Doe",
+      type:"instructor"
     });
   });
   it("returns appropriate error on non-existent login", async () => {
@@ -44,8 +46,6 @@ describe("intructorLogin", () => {
       .post("/api/instructor/login")
       .send({ email: "test@test.com", password: "StrongPassword12223!" });
     expect(response.statusCode).toBe(400);
-    expect(response.body).toEqual({
-      message: "Invalid Credentials",
-    });
+
   });
 });

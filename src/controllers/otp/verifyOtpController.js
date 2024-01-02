@@ -1,24 +1,44 @@
 const otpGenerator = require("../../utils/otpGenerator");
 const Otp = require("../../models/otp");
 const jwt = require("jsonwebtoken");
+const Instructor = require("../../models/instructor");
+const Student = require("../../models/student");
 
-/*
-Verifies OTP.
-Accepts the otp and a token that contains the email against which OTP is to be validated.
-*/
+/**
+ * Handles OTP verification for instructor and student sign-up.
+ * 
+ * @param {*} req - The HTTP request object containing OTP, email, and type (instructor or student).
+ * @param {*} res - The HTTP response object to send the response.
+ */
 
 const verifyOtp = async (req, res) => {
-  console.log("HERE");
-  const { otp, token } = req.body;
-  console.log(token);
+  console.log("HERE", req.body);
+  const { otp, email, type } = req.body;
   try {
-    const decoded = jwt.verify(token, process.env.SECRET_KEY);
-    const email = decoded.email;
     const check = await Otp.verifyOTP(email, otp);
+    let token;
     if (check) {
       await Otp.deleteOTP(email);
+      if (type === "instructor") {
+        var instructor = await Instructor.findOne({ email: email });
+        if (instructor.status === "pending") {
+          instructor.status = "registered";
+          await instructor.save();
+          token = await instructor.generateAuthToken();
+          res.header("Authorization", `Bearer ${token}`);
+          res.send({ _id: instructor._id });
+        }
+      } else {
+        var student = await Student.findOne({ email: email });
+        if (student.status === "pending") {
+          student.status = "registered";
+          await student.save();
+          token = await student.generateAuthToken();
+          res.header("Authorization", `Bearer ${token}`);
+          res.send({ _id: student._id });
+        }
+      }
     }
-    res.send(check);
   } catch (error) {
     console.log(error);
     res.status(400).send(error);

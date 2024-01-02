@@ -1,0 +1,13 @@
+const Course = require("../../models/course");
+
+const getCourseCurriculum = async (req, res) => {
+    const courseId = req.query.courseId;
+    try{
+        const course = await Course.findById(courseId,
+            {
+                lessons:1,
+            })
+    }catch(error){
+        console.log(error)
+    }
+}

@@ -8,19 +8,30 @@
     paymentDetails: to be filled later
 
 */
+const mongoose = require("mongoose");
 
-const Payment = {
+const paymentSchema = new mongoose.Schema({
   student: {
-    type: mongoose.Schemas.Type.objectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: "Student",
   },
   course: {
-    type: mongoose.Schemas.Type.objectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: "Course",
   },
   paymentDetails: {
     // To be filled later depending on payment gateway implemented
+    checkoutSession: {
+      type: String,
+    },
+    price: {
+      type: Number,
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now,
+    },
   },
-};
-
-export default Payment;
+});
+const Payment = mongoose.model("Payment", paymentSchema);
+module.exports = Payment;

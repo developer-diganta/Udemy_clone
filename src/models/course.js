@@ -42,9 +42,11 @@ const courseSchema = new mongoose.Schema({
     trim: true,
     required: true,
     minlength: 4,
-    maxlength: 50,
+    maxlength: 100,
     validate: {
-      validator: (value) => validator.isAlphanumeric(value.replace(/\s/g, "")),
+      validator: (value) => {
+        return /^[a-zA-Z0-9,!?&() ]+$/.test(value);
+      },
       message: "Invalid characters in title",
     },
   },
@@ -52,14 +54,21 @@ const courseSchema = new mongoose.Schema({
   description: {
     type: String,
     default: "",
-    maxLength: 500,
+    maxLength: 5000,
   },
 
   instructor: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Instructor",
   },
-
+  stripePriceId: {
+    type: String,
+    required: true,
+  },
+  stripeProductId: {
+    type: String,
+    required: true,
+  },
   categories: {
     type: [
       {
@@ -81,6 +90,7 @@ const courseSchema = new mongoose.Schema({
     validate: {
       validator: (value) => {
         if (isNaN(value)) return false;
+        if(value<0) return false;
 
         const decimalPlaces = (value.toString().split(".")[1] || "").length;
         return decimalPlaces <= 2;
@@ -91,7 +101,7 @@ const courseSchema = new mongoose.Schema({
 
   discount: {
     type: Number,
-    min: 10,
+    min: 0,
     max: 100,
   },
 
@@ -100,6 +110,27 @@ const courseSchema = new mongoose.Schema({
     min: 0,
     max: 5,
   },
+
+  reviews: [
+    {
+      rating: {
+        type: Number,
+        min: 0,
+        max: 5,
+      },
+      review: {
+        type: String,
+      },
+      reviewer: {
+        type: mongoose.Schema.Types.ObjectId,
+        refPath: "Student",
+      },
+      createdOn:{
+        type:Date,
+        default: Date.now
+      }
+    },
+  ],
 
   enrollments: {
     type: Number,
@@ -110,10 +141,7 @@ const courseSchema = new mongoose.Schema({
     type: String,
     default:
       "https://creazilla-store.fra1.digitaloceanspaces.com/emojis/42602/play-button-emoji-clipart-md.png",
-    validate: {
-      validator: (value) => validator.isURL(value),
-      message: "Invalid URL for thumbnail image.",
-    },
+
   },
 
   requirements: {
@@ -155,8 +183,12 @@ const courseSchema = new mongoose.Schema({
           maxlength: 1000,
         },
         askedBy: {
-          asker: mongoose.Schema.Types.ObjectId,
-          // ref: 'Student',
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Student",
+        },
+        askedOn: {
+          type: Date,
+          default: Date.now,
         },
         answers: {
           type: [
@@ -169,6 +201,13 @@ const courseSchema = new mongoose.Schema({
                 type: String,
                 enum: ["Student", "Instructor"],
               },
+              answer: {
+                type: String,
+              },
+              answeredOn: {
+                type: Date,
+                default: Date.now,
+              },
             },
           ],
         },
@@ -179,24 +218,32 @@ const courseSchema = new mongoose.Schema({
   lessons: {
     type: [
       {
-        subsection: [
+        title: {
+          type: String,
+          required: true,
+        },
+        videos: [
           {
             title: {
               type: String,
-              required: true,
+              // required: true,
             },
-            videos: [
-              {
-                title: {
-                  type: String,
-                  required: true,
-                },
-                videoLink: {
-                  type: String,
-                  required: true,
-                },
-              },
-            ],
+            videoLink: {
+              type: String,
+              // required: true,
+            },
+            type:{
+              type: String
+            },
+            description:{
+              type: String
+            },
+            input:{
+              type:String
+            },
+            output:{
+              type:String
+            }
           },
         ],
       },
@@ -211,6 +258,12 @@ const courseSchema = new mongoose.Schema({
   updatedAt: {
     type: Date,
   },
+
+  status: {
+    type: String,
+    enum: ["pending", "published","active"],
+    default: "pending",
+  },
 });
 
 // async function fuzzySearch(query) {
@@ -218,6 +271,10 @@ const courseSchema = new mongoose.Schema({
 //   const result = await Course.find({ title: { $regex: new RegExp(query, 'i') } });
 //   console.log(result)
 //   return result;
+// }
+
+// courseSchema.statics.findCourse = async function (_id){
+//   const
 // }
 
 const Course = mongoose.model("Course", courseSchema);

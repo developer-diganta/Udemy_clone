@@ -1,4 +1,5 @@
 const Course = require("../../models/course");
+const logger = require("../../logger/logger")
 
 const getCoursesController = async (req, res) => {
   try {
@@ -7,7 +8,14 @@ const getCoursesController = async (req, res) => {
     const limit = parseInt(req.query.limit);
     const sortObject = {};
     sortObject[sortBy] = parseInt(sortOrder);
+    console.log(req.query)
+    const c = await Course.find({})
+    console.log(c)
+
     const courses = await Course.aggregate([
+      {
+        $match: { status: "active" } 
+      },
       {
         $lookup: {
           from: "instructors",
@@ -27,6 +35,9 @@ const getCoursesController = async (req, res) => {
           rating: 1,
           enrollments: 1,
           thumbnail: 1,
+          instructor:1,
+          price:1,
+          reviews:1,
           instructorName: "$instructorInfo.name",
         },
       },
@@ -40,7 +51,7 @@ const getCoursesController = async (req, res) => {
 
     console.log(courses);
 
-    console.log(courses);
+    // console.log(courses);
 
     res.send(courses);
   } catch (error) {
